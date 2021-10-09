@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 require('packer').startup(function()
 
     use 'wbthomason/packer.nvim'
@@ -11,6 +12,7 @@ require('packer').startup(function()
     use 'jiangmiao/auto-pairs'
     use 'alvan/vim-closetag'
     use 'michaeljsmith/vim-indent-object'
+    use 'ap/vim-css-color'
 
     use {
         'kyazdani42/nvim-tree.lua',
@@ -18,6 +20,7 @@ require('packer').startup(function()
         config = function()
             require('plugins.configs.nvimtree')
             require'nvim-tree'.setup {
+                lsp_diagnostics     = true,
                 disable_netrw       = true,
                 hijack_netrw        = true,
                 open_on_setup       = false,
@@ -25,8 +28,7 @@ require('packer').startup(function()
                 auto_close          = true,
                 open_on_tab         = false,
                 hijack_cursor       = false,
-                update_cwd          = false,
-                update_focused_file = {
+                update_cwd          = false, update_focused_file = {
                     enable      = false,
                     update_cwd  = false,
                     ignore_list = {}
@@ -39,9 +41,10 @@ require('packer').startup(function()
         end
     }
 
+    -- Theming
+    use 'rktjmp/lush.nvim'
     use 'juliusschumacher/wal.vim'
-    use 'noahfrederick/vim-noctu'
-    use 'jsit/disco.vim'
+    use "~/code/lush_wal"
 
     use {
         "lukas-reineke/indent-blankline.nvim",
@@ -76,7 +79,12 @@ require('packer').startup(function()
         end
     }
 
-    use 'famiu/feline.nvim'
+    use {
+        'famiu/feline.nvim',
+        config = function()
+            require('plugins.configs.feline')
+        end
+    }
 
     use {
         'neovim/nvim-lspconfig',

@@ -48,6 +48,12 @@ map(
 map('', '<TAB>', ':BufferLineCycleNext<CR>', {noremap = true, silent = true})
 map('', '<S-TAB>', ':BufferLineCyclePrev<CR>', {noremap = true, silent = true})
 map('n', '<leader>q', ':bw<CR>', {noremap = true, silent = true})
+-- cokeline
+-- cmd [[
+--     nmap <silent> <S-Tab> <Plug>(cokeline-focus-prev)
+--     nmap <silent> <Tab> <Plug>(cokeline-focus-next)
+-- ]]
+map('n', '<leader>q', ':bw<CR>', {noremap = true, silent = true})
 
 -- restart
 map('n', '<leader>r', ':Reload<CR>',{noremap = true})
@@ -72,3 +78,20 @@ map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 map('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
 map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+
+
+-- gitsigns
+map('n', '<leader>hs', '<cmd>lua require"gitsigns".stage_hunk()<CR>', opts)
+map('v', '<leader>hs', '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', opts)
+map('n', '<leader>hu', '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>', opts)
+map('n', '<leader>hr', '<cmd>lua require"gitsigns".reset_hunk()<CR>', opts)
+map('v', '<leader>hr', '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', opts)
+map('n', '<leader>hR', '<cmd>lua require"gitsigns".reset_buffer()<CR>', opts)
+map('n', '<leader>hp', '<cmd>lua require"gitsigns".preview_hunk()<CR>', opts)
+map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line(true)<CR>', opts)
+map('n', '<leader>hS', '<cmd>lua require"gitsigns".stage_buffer()<CR>', opts)
+map('n', '<leader>hU', '<cmd>lua require"gitsigns".reset_buffer_index()<CR>', opts)
+
+-- Text objects
+map('o', 'ih', ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>', opts)
+map('x', 'ih', ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>', opts)

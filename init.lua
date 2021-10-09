@@ -34,7 +34,7 @@ opt.expandtab = true
 opt.scrolloff=12
 
 -- signcolumn for git changes, errors etc
-opt.signcolumn = "yes"
+--opt.signcolumn = "yes"
 
 -- History
 opt.history = 200
@@ -51,7 +51,8 @@ cmd([[ autocmd BufWritePre * %s/\s\+$//e ]])
 cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
 
 -- Colorscheme
-cmd([[ colorscheme wal ]])
+cmd([[ colorscheme lush_wal ]])
+opt.termguicolors = true
 -- Syntax on
 cmd([[ syntax on ]])
 -- make comments cursive

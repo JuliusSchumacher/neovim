@@ -1,5 +1,6 @@
 local lsp = require'lspconfig'
 local util = require'lspconfig/util'
+local cmd = vim.api.nvim_command
 -- lua
 local sumneko_binary_path = vim.fn.exepath('lua-language-server')
 local sumneko_root_path = vim.fn.fnamemodify(sumneko_binary_path, ':h:h:h')
@@ -43,3 +44,10 @@ lsp.omnisharp.setup{
     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
 }
 
+-- yaml
+lsp.yamlls.setup{}
+cmd [[
+    autocmd FileType yaml setlocal tabstop=2
+    autocmd FileType yaml setlocal shiftwidth=2
+    autocmd FileType yaml setlocal expandtab
+]]
