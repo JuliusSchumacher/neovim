@@ -24,25 +24,6 @@ cmd([[
     cnoreabbrev Qall qall
 ]])
 
--- smart tab
-local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-_G.smart_tab = function()
-    if vim.fn.pumvisible() == 1 then
-        return t'<C-n>'
-    else
-        return t'<Tab>'
-    end
-end
-
-map(
-    'i',
-    '<Tab>',
-    'v:lua.smart_tab()',
-    {noremap = true, expr = true}
-)
 
 -- bufferline
 map('', '<TAB>', ':BufferLineCycleNext<CR>', {noremap = true, silent = true})
@@ -98,12 +79,13 @@ map('x', 'ih', ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>', opts)
 
 
 -- telescope
-map('n', 'gd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', opts)
-map('n', 'gr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', opts)
-map('n', 'gi', '<cmd>lua require("telescope.builtin").lsp_implementations()<CR>', opts)
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 map('n', '<leader>fs', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>', opts)
 map('n', '<leader>fS', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>', opts)
-map('n', '<leader>ca', '<cmd>lua require("telescope.builtin").lsp_code_actions()<CR>', opts)
+map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 map('v', '<leader>ca', '<cmd>lua require("telescope.builtin").lsp_range_code_actions({vim.fn.line("."), vim.fn.line("v")})<CR>', opts)
 map('n', '<leader>dg', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
 map('n', '<leader>dG', '<cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', opts)

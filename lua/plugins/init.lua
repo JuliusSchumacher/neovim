@@ -94,14 +94,7 @@ require('packer').startup(function()
     }
 
     use {
-        'onsails/lspkind-nvim',
-        config = function()
-            require('lspkind').init({
-                with_text = true,
-                preset = 'default'
-            })
-
-        end
+        'onsails/lspkind-nvim'
     }
 
     use {
@@ -110,6 +103,8 @@ require('packer').startup(function()
             require('plugins.configs.lspsignature')
         end
     }
+
+    use 'L3MON4D3/LuaSnip'
 
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
@@ -132,21 +127,33 @@ require('packer').startup(function()
     use 'famiu/nvim-reload'
 
     use {
-        'nvim-telescope/telescope.nvim',
-        requires = { {'nvim-lua/plenary.nvim'} },
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make',
+        }
+
+    use {
+        'gbrlsnchs/telescope-lsp-handlers.nvim',
     }
 
     use {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'make',
+        'nvim-telescope/telescope.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
         config = function()
+            require('telescope').setup({
+                extensions = {
+                    lsp_handlers = {
+                        code_action = {
+                            telescope = require("telescope.themes").get_dropdown({}),
+                        },
+                    },
+                },
+            })
+            require('telescope').load_extension('lsp_handlers')
             require('telescope').load_extension('fzf')
         end
-        }
 
-    -- use 'omnisharp/omnisharp-vim'
-    -- use 'nickspoons/vim-sharpenup'
-    -- use 'dense-analysis/ale'
+    }
+
 
 
 end)
