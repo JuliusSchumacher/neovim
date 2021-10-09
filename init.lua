@@ -11,7 +11,6 @@ local home = os.getenv('HOME')
 -- default things everyone does
 opt.encoding = "utf-8"
 opt.hidden = true
-
 -- line numbers
 opt.number = true
 opt.relativenumber = true
@@ -59,3 +58,8 @@ cmd([[ syntax on ]])
 cmd([[ highlight Comment cterm=italic ]])
 
 cmd [[ hi Pmenu ctermbg=0 ]]
+
+cmd [[
+    call wilder#setup({'modes': [':', '/', '?']})
+    call wilder#set_option('renderer', wilder#popupmenu_renderer({ 'highlighter': wilder#basic_highlighter(), }))
+]]

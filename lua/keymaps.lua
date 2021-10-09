@@ -29,12 +29,6 @@ cmd([[
 map('', '<TAB>', ':BufferLineCycleNext<CR>', {noremap = true, silent = true})
 map('', '<S-TAB>', ':BufferLineCyclePrev<CR>', {noremap = true, silent = true})
 map('n', '<leader>q', ':bw<CR>', {noremap = true, silent = true})
--- cokeline
--- cmd [[
---     nmap <silent> <S-Tab> <Plug>(cokeline-focus-prev)
---     nmap <silent> <Tab> <Plug>(cokeline-focus-next)
--- ]]
-map('n', '<leader>q', ':bw<CR>', {noremap = true, silent = true})
 
 -- restart
 map('n', '<leader>r', ':Reload<CR>',{noremap = true})
@@ -86,7 +80,8 @@ map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 map('n', '<leader>fs', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>', opts)
 map('n', '<leader>fS', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>', opts)
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-map('v', '<leader>ca', '<cmd>lua require("telescope.builtin").lsp_range_code_actions({vim.fn.line("."), vim.fn.line("v")})<CR>', opts)
+map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 map('n', '<leader>dg', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
 map('n', '<leader>dG', '<cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', opts)
 map('n', '<leader>D', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)
+map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)

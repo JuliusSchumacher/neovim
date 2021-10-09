@@ -1,20 +1,11 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
+local luasnip = require('luasnip')
 
 cmp.setup{
     sources = {
         { name = 'nvim_lsp' },
-        { name = 'omnisharp' },
-
-        -- For vsnip user.
-        -- { name = 'vsnip' },
-
-        -- For luasnip user.
         { name = 'luasnip' },
-
-        -- For ultisnips user.
-        -- { name = 'ultisnips' },
-
         { name = 'buffer' },
     },
 
@@ -25,11 +16,14 @@ cmp.setup{
         ['<Tab>'] = function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
             else
                 fallback()
             end
         end,
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<C-Space>'] = cmp.mapping.complete(),
     },
     snippet = {
         expand = function(args)

@@ -44,7 +44,7 @@ require('packer').startup(function()
     -- Theming
     use 'rktjmp/lush.nvim'
     use 'juliusschumacher/wal.vim'
-    use "~/code/lush_wal"
+    use "juliusschumacher/lush_wal"
 
     use {
         "lukas-reineke/indent-blankline.nvim",
@@ -98,6 +98,11 @@ require('packer').startup(function()
     }
 
     use {
+        'weilbith/nvim-code-action-menu',
+        cmd = 'CodeActionMenu',
+    }
+
+    use {
         'onsails/lspkind-nvim'
     }
 
@@ -140,6 +145,10 @@ require('packer').startup(function()
     }
 
     use {
+        'nvim-telescope/telescope-dap.nvim'
+    }
+
+    use {
         'nvim-telescope/telescope.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
         config = function()
@@ -154,10 +163,19 @@ require('packer').startup(function()
             })
             require('telescope').load_extension('lsp_handlers')
             require('telescope').load_extension('fzf')
+            require('telescope').load_extension('dap')
         end
-
     }
 
+    use {
+        'mfussenegger/nvim-dap',
+        config = function()
+            require('plugins.configs.dap')
+        end
+    }
 
+    use 'rmagatti/auto-session'
+
+    use 'gelguy/wilder.nvim'
 
 end)
