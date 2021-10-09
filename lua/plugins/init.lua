@@ -79,6 +79,10 @@ require('packer').startup(function()
         end
     }
 
+    use 'tpope/vim-fugitive'
+    use 'junegunn/gv.vim'
+
+
     use {
         'famiu/feline.nvim',
         config = function()

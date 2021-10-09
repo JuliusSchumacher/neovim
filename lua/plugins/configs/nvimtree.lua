@@ -1,10 +1,12 @@
 local g = vim.g
+local git_status = 1
+local cmd = vim.api.nvim_command
 
 g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
 g.nvim_tree_allow_resize = 1
 g.nvim_tree_auto_ignore_ft = { "dashboard" } -- don't open tree on specific fiypes.
 g.nvim_tree_git_hl = git_status
-g.nvim_tree_gitignore = git_status
+g.nvim_tree_gitignore = 0
 g.nvim_tree_hide_dotfiles = 0
 g.nvim_tree_highlight_opened_files = 1
 g.nvim_tree_indent_markers = 1
@@ -25,8 +27,8 @@ g.nvim_tree_icons = {
    symlink = "",
    git = {
       deleted = "",
-      ignored = "◌",
-      renamed = "➜",
+      ignored = "i",
+      renamed = "r",
       staged = "✓",
       unmerged = "",
       unstaged = "✗",
@@ -44,3 +46,4 @@ g.nvim_tree_icons = {
       symlink_open = "",
    },
 }
+
