@@ -1,3 +1,5 @@
+local home = os.getenv('HOME')
+
 -- see if the file exists
 local function file_exists(file)
   local f = io.open(file, "rb")
@@ -16,8 +18,7 @@ local function lines_from(file)
   return lines
 end
 
-
-local from_theme = lines_from('/home/julius/.cache/wal/colors')
+local from_theme = lines_from(home .. '/.cache/wal/colors')
 
 local colors = {
     fg      = from_theme[8],
