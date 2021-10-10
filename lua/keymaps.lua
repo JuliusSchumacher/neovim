@@ -24,10 +24,12 @@ cmd([[
     cnoreabbrev Qall qall
 ]])
 
+map('n', 'zz', 'za', opts)
 
 -- bufferline
 map('', '<TAB>', ':BufferLineCycleNext<CR>', {noremap = true, silent = true})
 map('', '<S-TAB>', ':BufferLineCyclePrev<CR>', {noremap = true, silent = true})
+map('n', 'gb', ':BufferLinePick<CR>', {noremap = true, silent = true})
 map('n', '<leader>q', ':bw<CR>', {noremap = true, silent = true})
 
 -- restart
@@ -75,13 +77,14 @@ map('x', 'ih', ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>', opts)
 -- telescope
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+map('n', 'fr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-map('n', '<leader>fs', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>', opts)
-map('n', '<leader>fS', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>', opts)
+map('n', '<leader>fS', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>', opts)
+map('n', '<leader>fs', '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>', opts)
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 map('n', '<leader>dg', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
 map('n', '<leader>dG', '<cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', opts)
 map('n', '<leader>D', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)
 map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)

@@ -1,16 +1,23 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
+local tabnine = require('cmp_tabnine.config')
+
+tabnine:setup({
+    max_lines = 1000;
+})
 
 cmp.setup{
     sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'buffer' },
+        { name = 'path' },
+        { name = 'cmp_tabnine' },
     },
 
     formatting = {
-        format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+        format = lspkind.cmp_format({with_text = true, maxwidth = 50})
     },
     mapping = {
         ['<Tab>'] = function(fallback)

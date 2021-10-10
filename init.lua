@@ -5,6 +5,7 @@ require('keymaps')
 
 local opt = vim.opt
 local g = vim.g
+local wo = vim.wo
 local cmd = vim.api.nvim_command
 local home = os.getenv('HOME')
 
@@ -63,3 +64,14 @@ cmd [[
     call wilder#setup({'modes': [':', '/', '?']})
     call wilder#set_option('renderer', wilder#popupmenu_renderer({ 'highlighter': wilder#basic_highlighter(), }))
 ]]
+
+-- fold settings
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo.foldtext =
+    [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
+vim.wo.fillchars = "fold:\\"
+vim.wo.foldnestmax = 3
+vim.wo.foldminlines = 1
+
+cmd [[ autocmd BufReadPost,FileReadPost,BufEnter * :normal zR " unfold by default ]]

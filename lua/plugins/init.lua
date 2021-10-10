@@ -13,7 +13,14 @@ require('packer').startup(function()
     use 'jiangmiao/auto-pairs'
     use 'alvan/vim-closetag'
     use 'michaeljsmith/vim-indent-object'
-    use 'ap/vim-css-color'
+
+    use {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+            require("colorizer").setup()
+        end
+    }
+
 
     use {
         'kyazdani42/nvim-tree.lua',
@@ -46,6 +53,7 @@ require('packer').startup(function()
     use 'rktjmp/lush.nvim'
     use 'juliusschumacher/wal.vim'
     use "juliusschumacher/lush_wal"
+    use 'wuelnerdotexe/vim-enfocado'
 
     use {
         "lukas-reineke/indent-blankline.nvim",
@@ -116,8 +124,13 @@ require('packer').startup(function()
 
     use 'L3MON4D3/LuaSnip'
 
+    use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
+    use {
+        'tzachar/cmp-tabnine',
+        run='./install.sh',
+    }
 
     use {
         'https://github.com/hrsh7th/nvim-cmp',
@@ -178,5 +191,17 @@ require('packer').startup(function()
     use 'rmagatti/auto-session'
 
     use 'gelguy/wilder.nvim'
+
+
+    use {
+        'iamcco/markdown-preview.nvim',
+        run = ':call mkdp#util#install()'
+    }
+
+    use 'Darazaki/indent-o-matic'
+
+    use 'hashivim/vim-terraform'
+
+    use 'ggandor/lightspeed.nvim'
 
 end)
