@@ -4,9 +4,7 @@ require('filetype')
 require('keymaps')
 
 local opt = vim.opt
-local g = vim.g
-local wo = vim.wo
-local cmd = vim.api.nvim_command
+local cmd = vim.cmd
 local home = os.getenv('HOME')
 
 -- default things everyone does
@@ -48,7 +46,7 @@ opt.writebackup = true
 cmd([[ autocmd BufWritePre * %s/\s\+$//e ]])
 
 -- Remember last position in file
-cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
+cmd([[ au BufReadPost,BufEnter * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
 
 -- Colorscheme
 cmd([[ colorscheme lush_wal ]])
@@ -60,10 +58,7 @@ cmd([[ highlight Comment cterm=italic ]])
 
 cmd [[ hi Pmenu ctermbg=0 ]]
 
-cmd [[
-    call wilder#setup({'modes': [':', '/', '?']})
-    call wilder#set_option('renderer', wilder#popupmenu_renderer({ 'highlighter': wilder#basic_highlighter(), }))
-]]
+
 
 -- fold settings
 vim.wo.foldmethod = "expr"

@@ -1,6 +1,5 @@
 local g = vim.g
 local git_status = 1
-local cmd = vim.api.nvim_command
 
 g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
 g.nvim_tree_allow_resize = 1
@@ -14,7 +13,6 @@ g.nvim_tree_ignore = { ".git", "node_modules", ".cache" }
 g.nvim_tree_quit_on_open = 1 -- closes tree when file's opened
 g.nvim_tree_side = "left"
 g.nvim_tree_width = 25
-
 g.nvim_tree_show_icons = {
    folders = 1,
    -- folder_arrows= 1
@@ -27,12 +25,12 @@ g.nvim_tree_icons = {
    symlink = "",
    git = {
       deleted = "",
-      ignored = "i",
+      ignored = "",
       renamed = "r",
       staged = "✓",
       unmerged = "",
-      unstaged = "✗",
-      untracked = "★",
+      unstaged = "x",
+      untracked = "*",
    },
    folder = {
       -- disable indent_markers option to get arrows working or if you want both arrows and indent then just add the arrow icons in front            ofthe default and opened folders below!

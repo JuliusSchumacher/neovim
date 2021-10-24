@@ -13,6 +13,7 @@ cmp.setup{
         { name = 'luasnip' },
         { name = 'buffer' },
         { name = 'path' },
+        { name = 'calc' },
         { name = 'cmp_tabnine' },
     },
 

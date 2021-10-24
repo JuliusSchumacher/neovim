@@ -26,9 +26,8 @@ require('packer').startup(function()
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
-            require('plugins.configs.nvimtree')
             require'nvim-tree'.setup {
-                lsp_diagnostics     = true,
+                diagnostics         = { enable = true },
                 disable_netrw       = true,
                 hijack_netrw        = true,
                 open_on_setup       = false,
@@ -46,6 +45,7 @@ require('packer').startup(function()
                     args = {}
                 },
             }
+            require('plugins.configs.nvimtree')
         end
     }
 
@@ -124,6 +124,7 @@ require('packer').startup(function()
 
     use 'L3MON4D3/LuaSnip'
 
+    use 'hrsh7th/cmp-calc'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
@@ -158,9 +159,9 @@ require('packer').startup(function()
         'gbrlsnchs/telescope-lsp-handlers.nvim',
     }
 
-    use {
+    --[[ use {
         'nvim-telescope/telescope-dap.nvim'
-    }
+    } ]]
 
     use {
         'nvim-telescope/telescope.nvim',
@@ -177,20 +178,30 @@ require('packer').startup(function()
             })
             require('telescope').load_extension('lsp_handlers')
             require('telescope').load_extension('fzf')
-            require('telescope').load_extension('dap')
+            -- require('telescope').load_extension('dap')
         end
     }
 
-    use {
-        'mfussenegger/nvim-dap',
+    --[[ use {
+        "rcarriga/nvim-dap-ui",
+        requires = {"mfussenegger/nvim-dap"},
         config = function()
             require('plugins.configs.dap')
+            require('dapui').setup()
         end
-    }
+    } ]]
 
     use 'rmagatti/auto-session'
 
-    use 'gelguy/wilder.nvim'
+    use_rocks 'fzy-lua-native'
+    use {
+        'gelguy/wilder.nvim',
+        rocks = { 'fzy-lua-native' },
+        run = ':UpdateRemotePlugins',
+        config = function ()
+            require('plugins.configs.wilder')
+        end
+    }
 
 
     use {
@@ -203,5 +214,7 @@ require('packer').startup(function()
     use 'hashivim/vim-terraform'
 
     use 'ggandor/lightspeed.nvim'
+
+
 
 end)
