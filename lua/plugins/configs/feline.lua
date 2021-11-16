@@ -23,15 +23,7 @@ local vi_mode_colors = {
 
 local function file_osinfo()
     local os = vim.bo.fileformat:upper()
-    local icon
-    if os == 'UNIX' then
-        icon = ' '
-    elseif os == 'MAC' then
-        icon = ' '
-    else
-        icon = ' '
-    end
-    return icon .. os
+    return os
 end
 
 local lsp = require 'feline.providers.lsp'
