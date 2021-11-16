@@ -51,3 +51,8 @@ lsp.yamlls.setup{
 
 -- terraform
 require'lspconfig'.terraformls.setup{}
+
+-- css
+require'lspconfig'.cssls.setup{
+    cmd = { "vscode-css-languageserver", "--stdio" }
+}
