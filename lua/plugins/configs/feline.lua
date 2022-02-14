@@ -30,7 +30,7 @@ local lsp = require 'feline.providers.lsp'
 local vi_mode_utils = require 'feline.providers.vi_mode'
 
 local lsp_get_diag = function(str)
-  local count = vim.lsp.diagnostic.get_count(0, str)
+  local count = lsp.diagnostic.get_count(0, str)
   return (count > 0) and ' '..count..' ' or ''
 end
 
@@ -140,10 +140,10 @@ local comps = {
         warn = {
             -- provider = 'diagnostic_warnings',
             provider = function()
-                return '' ..  lsp_get_diag("Warning")
+                return '' ..  lsp_get_diag("Warn")
             end,
             -- left_sep = ' ',
-            enabled = function() return lsp.diagnostics_exist('Warning') end,
+            enabled = function() return lsp.diagnostics_exist('Warn') end,
             hl = {
                 fg = colors.yellow
             }
@@ -151,10 +151,10 @@ local comps = {
         info = {
             -- provider = 'diagnostic_info',
             provider = function()
-                return '' .. lsp_get_diag("Information")
+                return '' .. lsp_get_diag("Info")
             end,
             -- left_sep = ' ',
-            enabled = function() return lsp.diagnostics_exist('Information') end,
+            enabled = function() return lsp.diagnostics_exist('Info') end,
             hl = {
                 fg = colors.blue
             }
