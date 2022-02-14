@@ -30,7 +30,7 @@ local lsp = require 'feline.providers.lsp'
 local vi_mode_utils = require 'feline.providers.vi_mode'
 
 local lsp_get_diag = function(str)
-  local count = lsp.diagnostic.get_count(0, str)
+  local count = lsp.get_diagnostics_count(str)
   return (count > 0) and ' '..count..' ' or ''
 end
 
