@@ -14,6 +14,9 @@ opt.hidden = true
 opt.number = true
 opt.relativenumber = true
 
+--signcolumn
+opt.signcolumn = "yes"
+
 -- mouse and clipboard support
 opt.mouse = "a"
 opt.clipboard = "unnamedplus"

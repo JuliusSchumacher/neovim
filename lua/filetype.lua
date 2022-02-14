@@ -56,3 +56,18 @@ require'lspconfig'.terraformls.setup{}
 require'lspconfig'.cssls.setup{
     cmd = { "vscode-css-languageserver", "--stdio" }
 }
+
+-- powershell
+require'lspconfig'.powershell_es.setup{
+    bundle_path = "/home/julius/.config/nvim/ps/",
+    -- shell = "powershell.exe"
+}
+
+--[[ require'lspconfig'.powershell_es.setup{
+  cmd = {'pwsh', '-NoLogo', '-NoProfile', '-Command', "/home/julius/.config/nvim/ps/PowerShellEditorServices/Start-EditorServices.ps1"}
+} ]]
+
+-- sql
+require'lspconfig'.sqls.setup{
+    cmd = {"/usr/sbin/sqls", "-config", "~/.config/sqls/config.yml"}
+}
