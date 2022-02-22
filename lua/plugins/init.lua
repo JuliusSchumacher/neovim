@@ -219,5 +219,6 @@ require('packer').startup(function()
 
     use 'kristijanhusak/vim-dadbod-ui'
 
+    use 'cyberkov/openhab-vim'
 
 end)
