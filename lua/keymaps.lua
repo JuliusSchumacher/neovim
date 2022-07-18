@@ -49,7 +49,7 @@ map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
 map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
 map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+map('n', '<leader>rn', '<cmd>lua require("inc_rename").rename({ default = vim.fn.expand("<cword>") })<CR>', opts)
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 map('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
@@ -89,12 +89,14 @@ map('n', '<leader>D', '<cmd>lua require("telescope.builtin").lsp_type_definition
 map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)
 
---[[ -- dap
+-- dap
 map('n', '<F5>', '<cmd>lua require("dap").continue()<CR>', opts)
 map('n', '<leader>bp', '<cmd>lua require("dap").toggle_breakpoint()<CR>', opts)
 map('n', '<F10>', '<cmd>lua require("dap").step_over()<CR>', opts)
 map('n', '<F11>', '<cmd>lua require("dap").step_into()<CR>', opts)
 map('n', '<F12>', '<cmd>lua require("dap").step_out()<CR>', opts)
 
-map('n', '<leader>uo', '<cmd>lua require("dapui").open()<CR>', opts)
- ]]
+map('n', '<leader>uo', '<cmd>lua require("dapui").toggle()<CR>', opts)
+map('n', '<M-k>', '<cmd>lua require("dapui").eval()<CR>', opts)
+map('v', '<M-k>', '<cmd>lua require("dapui").eval()<CR>', opts)
+

@@ -71,3 +71,19 @@ require'lspconfig'.powershell_es.setup{
 require'lspconfig'.sqls.setup{
     cmd = {"/usr/sbin/sqls", "-config", "~/.config/sqls/config.yml"}
 }
+
+-- latex
+require'lspconfig'.texlab.setup{
+    settings = {
+        texlab = {
+            build = {
+                args = {  "-xelatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
+                onSave = true
+            }
+        }
+    }
+
+}
+
+-- python
+require'lspconfig'.pylsp.setup{}

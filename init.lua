@@ -10,11 +10,12 @@ local home = os.getenv('HOME')
 -- default things everyone does
 opt.encoding = "utf-8"
 opt.hidden = true
+
 -- line numbers
 opt.number = true
 opt.relativenumber = true
 
---signcolumn
+-- signcolumn
 opt.signcolumn = "yes"
 
 -- mouse and clipboard support
