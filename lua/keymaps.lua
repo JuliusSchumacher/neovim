@@ -8,21 +8,20 @@ local opts = { noremap=true, silent=true }
 g.mapleader = " "
 
 -- tree
--- map('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 map('n', '<C-n>', ':Neotree reveal toggle<CR>', opts)
 
 -- w/q aliases
 cmd([[
-    cnoreabbrev W! w!
-    cnoreabbrev Q! q!
-    cnoreabbrev Qall! qall!
-    cnoreabbrev Wq wq
-    cnoreabbrev Wa wa
-    cnoreabbrev wQ wq
-    cnoreabbrev WQ wq
-    cnoreabbrev W w
-    cnoreabbrev Q q
-    cnoreabbrev Qall qall
+  cnoreabbrev W! w!
+  cnoreabbrev Q! q!
+  cnoreabbrev Qall! qall!
+  cnoreabbrev Wq wq
+  cnoreabbrev Wa wa
+  cnoreabbrev wQ wq
+  cnoreabbrev WQ wq
+  cnoreabbrev W w
+  cnoreabbrev Q q
+  cnoreabbrev Qall qall
 ]])
 
 map('n', 'zz', 'za', opts)
@@ -52,11 +51,13 @@ map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opt
 map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 map('n', '<leader>rn', '<cmd>lua require("inc_rename").rename({ default = vim.fn.expand("<cword>") })<CR>', opts)
-map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-map('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+map('n', '<leader>e', '<cmd>Lspsaga show_line_diagnostics<CR>', opts)
 map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
 map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+-- map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+map('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opts)
+map('v', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opts)
 
 
 -- gitsigns
@@ -83,8 +84,8 @@ map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 map('n', '<leader>fS', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>', opts)
 map('n', '<leader>fs', '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>', opts)
-map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+-- map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+-- map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 map('n', '<leader>dG', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
 map('n', '<leader>dg', '<cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', opts)
 map('n', '<leader>D', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)

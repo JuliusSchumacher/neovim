@@ -1,14 +1,20 @@
-vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#eee]]
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
-
+local signs = {
+  Error = ' ',
+  Warn = ' ',
+  Info = ' ',
+  Hint = 'ﴞ ',
+}
 for type, icon in pairs(signs) do
-  local hl = "LspDiagnosticsSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+  local hl = 'DiagnosticSign' .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.diagnostic.config({
+  signs = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
   virtual_text = {
-    prefix = 'x', -- Could be '●', '▎', 'x'
-  }
+    source = true,
+  },
 })
-

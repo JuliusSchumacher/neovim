@@ -1,6 +1,7 @@
 local lsp = require'lspconfig'
 local util = require'lspconfig/util'
 local cmd = vim.api.nvim_command
+
 -- lua
 local sumneko_binary_path = vim.fn.exepath('lua-language-server')
 local sumneko_root_path = vim.fn.fnamemodify(sumneko_binary_path, ':h:h:h')
@@ -10,43 +11,43 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 lsp.sumneko_lua.setup {
-    cmd = {sumneko_binary_path, "-E", sumneko_root_path .. "/main.lua"};
-    settings = {
-        Lua = {
-        runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-            -- Setup your lua path
-            path = runtime_path,
-        },
-        diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'},
-        },
-        workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-            enable = false,
-        },
-        },
+  cmd = {sumneko_binary_path, "-E", sumneko_root_path .. "/main.lua"};
+  settings = {
+    Lua = {
+    runtime = {
+      -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+      version = 'LuaJIT',
+      -- Setup your lua path
+      path = runtime_path,
     },
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    diagnostics = {
+      -- Get the language server to recognize the `vim` global
+      globals = {'vim'},
+    },
+    workspace = {
+      -- Make the server aware of Neovim runtime files
+      library = vim.api.nvim_get_runtime_file("", true),
+    },
+    -- Do not send telemetry data containing a randomized but unique identifier
+    telemetry = {
+      enable = false,
+    },
+    },
+  },
+  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- csharp
 local pid = vim.fn.getpid()
 local omnisharp_bin = "/usr/bin/omnisharp"
 lsp.omnisharp.setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
+  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- yaml
 lsp.yamlls.setup{
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
 -- terraform
@@ -54,43 +55,37 @@ require'lspconfig'.terraformls.setup{}
 
 -- css
 require'lspconfig'.cssls.setup{
-    cmd = { "vscode-css-languageserver", "--stdio" }
+  cmd = { "vscode-css-languageserver", "--stdio" }
 }
 
 -- powershell
 require'lspconfig'.powershell_es.setup{
-    bundle_path = "/home/julius/.config/nvim/ps/",
-    -- shell = "powershell.exe"
+  bundle_path = "/home/julius/.config/nvim/ps/",
+  -- shell = "powershell.exe"
 }
-
---[[ require'lspconfig'.powershell_es.setup{
-  cmd = {'pwsh', '-NoLogo', '-NoProfile', '-Command', "/home/julius/.config/nvim/ps/PowerShellEditorServices/Start-EditorServices.ps1"}
-} ]]
 
 -- sql
 require'lspconfig'.sqls.setup{
-    cmd = {"/usr/sbin/sqls", "-config", "~/.config/sqls/config.yml"}
+  cmd = {"/usr/sbin/sqls", "-config", "~/.config/sqls/config.yml"}
 }
 
 -- latex
 require'lspconfig'.texlab.setup{
-    settings = {
-        texlab = {
-            build = {
-                args = {  "-xelatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
-                onSave = true
-            }
-        }
+  settings = {
+    texlab = {
+      build = {
+        args = {  "-xelatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
+        onSave = true
+      }
     }
+  }
 }
 
 -- python
 require'lspconfig'.pylsp.setup{}
 
-
 -- typescript
 require'lspconfig'.tsserver.setup{}
-
 
 -- ruby
 require'lspconfig'.solargraph.setup({})

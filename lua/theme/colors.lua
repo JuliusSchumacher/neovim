@@ -13,7 +13,7 @@ local function lines_from(file)
   if not file_exists(file) then return {} end
   local lines = {}
   for line in io.lines(file) do
-    lines[#lines + 1] = line
+  lines[#lines + 1] = line
   end
   return lines
 end
@@ -21,14 +21,14 @@ end
 local from_theme = lines_from(home .. '/.cache/wal/colors')
 
 local colors = {
-    fg      = from_theme[8],
-    bg      = from_theme[1],
-    red     = from_theme[2],
-    green   = from_theme[3],
-    yellow  = from_theme[4],
-    cyan    = from_theme[6],
-    blue    = from_theme[5],
-    magenta = from_theme[7]
+  fg    = from_theme[8],
+  bg    = from_theme[1],
+  red   = from_theme[2],
+  green   = from_theme[3],
+  yellow  = from_theme[4],
+  cyan  = from_theme[6],
+  blue  = from_theme[5],
+  magenta = from_theme[7]
 }
 
 return colors

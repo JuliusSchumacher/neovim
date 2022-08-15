@@ -1,354 +1,325 @@
 ---@diagnostic disable: undefined-global
 require('packer').startup(function()
 
-    use 'wbthomason/packer.nvim'
+  use 'wbthomason/packer.nvim'
 
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
-    use 'tpope/vim-repeat'
-    use 'tpope/vim-sensible'
-    use 'tpope/vim-surround'
-    -- use 'tpope/vim-commentary'
-    use 'b3nj5m1n/kommentary'
-    use 'jiangmiao/auto-pairs'
-    use 'alvan/vim-closetag'
-    use 'michaeljsmith/vim-indent-object'
+  use 'tpope/vim-repeat'
+  use 'tpope/vim-sensible'
+  use 'tpope/vim-surround'
+  use 'b3nj5m1n/kommentary'
+  use 'jiangmiao/auto-pairs'
+  use 'alvan/vim-closetag'
+  use 'michaeljsmith/vim-indent-object'
 
-    use {
-        'norcalli/nvim-colorizer.lua',
-        config = function()
-            require("colorizer").setup()
-        end
-    }
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require("colorizer").setup()
+    end
+  }
 
+  -- Theming
+  use 'rktjmp/lush.nvim'
+  use 'juliusschumacher/wal.vim'
+  use "juliusschumacher/lush_wal"
+  use 'wuelnerdotexe/vim-enfocado'
+  use 'rebelot/kanagawa.nvim'
+  use "ellisonleao/gruvbox.nvim"
 
-    --[[ use {
-        'kyazdani42/nvim-tree.lua',
-        requires = 'kyazdani42/nvim-web-devicons',
-        config = function()
-            require'nvim-tree'.setup {
-                diagnostics         = { enable = true },
-                disable_netrw       = true,
-                hijack_netrw        = true,
-                open_on_setup       = false,
-                ignore_ft_on_setup  = {},
-                open_on_tab         = false,
-                hijack_cursor       = false,
-                update_cwd          = false, update_focused_file = {
-                    enable      = false,
-                    update_cwd  = false,
-                    ignore_list = {}
-                },
-                system_open = {
-                    cmd  = nil,
-                    args = {}
-                },
-            }
-            require('plugins.configs.nvimtree')
-        end
-    } ]]
-
-    -- Theming
-    use 'rktjmp/lush.nvim'
-    use 'juliusschumacher/wal.vim'
-    use "juliusschumacher/lush_wal"
-    use 'wuelnerdotexe/vim-enfocado'
-    use 'rebelot/kanagawa.nvim'
-    use "ellisonleao/gruvbox.nvim"
-
-    use {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            require("indent_blankline").setup {
-                indentLine_enabled = 1,
-                char = "▏",
-                filetype_exclude = {
-                    "help",
-                    "terminal",
-                    "dashboard",
-                    "packer",
-                    "lspinfo",
-                    "TelescopePrompt",
-                    "TelescopeResults",
-                },
-                buftype_exclude = { "terminal" },
-                show_trailing_blankline_indent = false,
-                show_first_indent_level = false,
-                show_current_context = true,
-            }
-        end
-    }
-
-    use {
-        'lewis6991/gitsigns.nvim',
-        requires = {
-        'nvim-lua/plenary.nvim'
+  use {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup {
+        indentLine_enabled = 1,
+        char = "▏",
+        filetype_exclude = {
+          "help",
+          "terminal",
+          "dashboard",
+          "packer",
+          "lspinfo",
+          "TelescopePrompt",
+          "TelescopeResults",
         },
-        config = function()
-            require('plugins.configs.gitsigns')
-        end
+        buftype_exclude = { "terminal" },
+        show_trailing_blankline_indent = false,
+        show_first_indent_level = false,
+        show_current_context = true,
+      }
+    end
+  }
+
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+    'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require('plugins.configs.gitsigns')
+    end
+  }
+
+  use 'tpope/vim-fugitive'
+  use 'junegunn/gv.vim'
+
+
+  use {
+    'famiu/feline.nvim',
+    config = function()
+      require('plugins.configs.feline')
+    end
+  }
+
+  use {
+    'neovim/nvim-lspconfig',
+    config = function()
+      require('plugins.configs.lspconfig')
+    end
+  }
+
+  use {
+    'weilbith/nvim-code-action-menu',
+    cmd = 'CodeActionMenu',
+  }
+
+  use {
+    'onsails/lspkind-nvim'
+  }
+
+  use {
+    'ray-x/lsp_signature.nvim',
+    config = function()
+      require('plugins.configs.lspsignature')
+    end
+  }
+
+  use 'L3MON4D3/LuaSnip'
+
+  use 'hrsh7th/cmp-calc'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use {
+    'tzachar/cmp-tabnine',
+    run='./install.sh',
+  }
+
+  use {
+    'https://github.com/hrsh7th/nvim-cmp',
+    config = function()
+      require('plugins.configs.cmp')
+    end
+  }
+
+  use {
+    'akinsho/bufferline.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('plugins.configs.bufferline')
+    end
+  }
+
+  use 'famiu/nvim-reload'
+
+  use {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    run = 'make',
     }
 
-    use 'tpope/vim-fugitive'
-    use 'junegunn/gv.vim'
+  use {
+    'gbrlsnchs/telescope-lsp-handlers.nvim',
+  }
+
+  use {
+    "rcarriga/nvim-dap-ui",
+    requires = {"mfussenegger/nvim-dap"},
+    config = function()
+      require('plugins.configs.dap')
+    end
+  }
+
+  use {
+    'theHamsta/nvim-dap-virtual-text'
+  }
+
+  use {
+    'nvim-telescope/telescope-dap.nvim'
+  }
+
+  use 'mfussenegger/nvim-dap-python'
 
 
-    use {
-        'famiu/feline.nvim',
-        config = function()
-            require('plugins.configs.feline')
-        end
-    }
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('telescope').setup({
+        defaults = {
+          -- Switch between horizontal and vertical layout based on terminal width
+          layout_strategy = 'flex',
+          layout_config = {
+            width = 0.999,
+            height = 0.7,
+            anchor = 'S',
+            flex = {
+              -- Use vertical layout when under 150 lines
+              flip_columns = 150,
+            },
+            horizontal = {
+              -- Slightly larger preview (default: 0.5)
+              preview_width = 0.6,
+            },
+          },
+        },
+        extensions = {
+          lsp_handlers = {
+            code_action = {
+              telescope = require("telescope.themes").get_dropdown({}),
+            },
+          },
+        },
+      })
+      require('telescope').load_extension('lsp_handlers')
+      require('telescope').load_extension('fzf')
+      require('telescope').load_extension('dap')
+    end
+  }
 
-    use {
-        'neovim/nvim-lspconfig',
-        config = function()
-            require('plugins.configs.lspconfig')
-        end
-    }
+  use 'rmagatti/auto-session'
 
-    use {
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu',
-    }
+  use_rocks 'fzy-lua-native'
+  use {
+    'gelguy/wilder.nvim',
+    rocks = { 'fzy-lua-native' },
+    run = ':UpdateRemotePlugins',
+    config = function ()
+      require('plugins.configs.wilder')
+    end
+  }
 
-    use {
-        'onsails/lspkind-nvim'
-    }
 
-    use {
-        'ray-x/lsp_signature.nvim',
-        config = function()
-            require('plugins.configs.lspsignature')
-        end
-    }
+  use {
+    'iamcco/markdown-preview.nvim',
+    run = ':call mkdp#util#install()'
+  }
 
-    use 'L3MON4D3/LuaSnip'
+  use 'Darazaki/indent-o-matic'
 
-    use 'hrsh7th/cmp-calc'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use {
-        'tzachar/cmp-tabnine',
-        run='./install.sh',
-    }
+  use 'hashivim/vim-terraform'
 
-    use {
-        'https://github.com/hrsh7th/nvim-cmp',
-        config = function()
-            require('plugins.configs.cmp')
-        end
-    }
+  use 'ggandor/lightspeed.nvim'
 
-    use {
-        'akinsho/bufferline.nvim',
-        requires = 'kyazdani42/nvim-web-devicons',
-        config = function()
-            require('plugins.configs.bufferline')
-        end
-    }
+  use 'tpope/vim-dadbod'
 
-    use 'famiu/nvim-reload'
+  use 'kristijanhusak/vim-dadbod-ui'
 
-    use {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'make',
+  use 'cyberkov/openhab-vim'
+
+  use {
+    'lewis6991/spellsitter.nvim',
+    config = function()
+      require('spellsitter').setup()
+    end
+  }
+
+  use {
+    'rcarriga/nvim-notify',
+
+    config = function()
+      local notify = require("notify")
+      notify.setup {
+        background_colour = "Normal",
+        fps = 30,
+        icons = {
+          DEBUG = "",
+          ERROR = "",
+          INFO = "",
+          TRACE = "✎",
+          WARN = ""
+        },
+        level = 2,
+        minimum_width = 50,
+        render = "minimal",
+        stages = "slide",
+        timeout = 1000
+      }
+      vim.notify = notify
+    end
+  }
+
+  use {
+    'stevearc/dressing.nvim',
+    config = function()
+      require("dressing").setup {
+        input = {
+          override = function(conf)
+            conf.col = -1
+            conf.row = 0
+            return conf
+          end,
+        },
+      }
+    end
+  }
+
+  use {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup()
+    end,
+  }
+
+  use {
+    'kevinhwang91/nvim-ufo',
+    requires = 'kevinhwang91/promise-async'
+  }
+
+  use {
+    'j-hui/fidget.nvim',
+    config = function()
+      require'fidget'.setup()
+    end
+  }
+
+  use {
+    'simrat39/rust-tools.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    config = function ()
+      -- Update this path
+      local extension_path = '/usr/lib/codelldb/'
+      local codelldb_path = extension_path .. 'adapter/codelldb'
+      local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
+
+      local opts = {
+        dap = {
+          adapter = require('rust-tools.dap').get_codelldb_adapter(
+            codelldb_path, liblldb_path)
         }
+      }
 
-    use {
-        'gbrlsnchs/telescope-lsp-handlers.nvim',
-    }
+      -- Normal setup
+      require('rust-tools').setup(opts)
+    end
+  }
 
-    use {
-        "rcarriga/nvim-dap-ui",
-        requires = {"mfussenegger/nvim-dap"},
-        config = function()
-            require('plugins.configs.dap')
-        end
-    }
+  use {
+    'folke/which-key.nvim', -- Spacemacs style popup for keybindings
+    config = function ()
+      require('which-key').setup {}
+    end
+  }
 
-    use {
-        'theHamsta/nvim-dap-virtual-text'
-    }
-
-    use {
-        'nvim-telescope/telescope-dap.nvim'
-    }
-
-    use 'mfussenegger/nvim-dap-python'
-
-
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            require('telescope').setup({
-                defaults = {
-                    -- Switch between horizontal and vertical layout based on terminal width
-                    layout_strategy = 'flex',
-                    layout_config = {
-                        width = 0.999,
-                        height = 0.7,
-                        anchor = 'S',
-                        flex = {
-                            -- Use vertical layout when under 150 lines
-                            flip_columns = 150,
-                        },
-                        horizontal = {
-                            -- Slightly larger preview (default: 0.5)
-                            preview_width = 0.6,
-                        },
-                    },
-                },
-                extensions = {
-                    lsp_handlers = {
-                        code_action = {
-                            telescope = require("telescope.themes").get_dropdown({}),
-                        },
-                    },
-                },
-            })
-            require('telescope').load_extension('lsp_handlers')
-            require('telescope').load_extension('fzf')
-            require('telescope').load_extension('dap')
-        end
-    }
-
-    use 'rmagatti/auto-session'
-
-    use_rocks 'fzy-lua-native'
-    use {
-        'gelguy/wilder.nvim',
-        rocks = { 'fzy-lua-native' },
-        run = ':UpdateRemotePlugins',
-        config = function ()
-            require('plugins.configs.wilder')
-        end
-    }
-
-
-    use {
-        'iamcco/markdown-preview.nvim',
-        run = ':call mkdp#util#install()'
-    }
-
-    use 'Darazaki/indent-o-matic'
-
-    use 'hashivim/vim-terraform'
-
-    use 'ggandor/lightspeed.nvim'
-
-    use 'tpope/vim-dadbod'
-
-    use 'kristijanhusak/vim-dadbod-ui'
-
-    use 'cyberkov/openhab-vim'
-
-    use {
-        'lewis6991/spellsitter.nvim',
-        config = function()
-            require('spellsitter').setup()
-        end
-    }
-
-    use {
-        'rcarriga/nvim-notify',
-
-        config = function()
-            local notify = require("notify")
-            notify.setup {
-                background_colour = "Normal",
-                fps = 30,
-                icons = {
-                    DEBUG = "",
-                    ERROR = "",
-                    INFO = "",
-                    TRACE = "✎",
-                    WARN = ""
-                },
-                level = 2,
-                minimum_width = 50,
-                render = "minimal",
-                stages = "slide",
-                timeout = 1000
-              }
-        ;
-            vim.notify = notify
-        end
-    }
-
-    use {
-        'stevearc/dressing.nvim',
-        config = function()
-            require("dressing").setup {
-                input = {
-                    override = function(conf)
-                        conf.col = -1
-                        conf.row = 0
-                        return conf
-                    end,
-                },
-            }
-        end
-    }
-
-    use {
-        "smjonas/inc-rename.nvim",
-        config = function()
-            require("inc_rename").setup()
-        end,
-    }
-
-    use {
-        'kevinhwang91/nvim-ufo',
-        requires = 'kevinhwang91/promise-async'
-    }
-
-    use {
-        'j-hui/fidget.nvim',
-        config = function()
-            require'fidget'.setup()
-        end
-    }
-
-    use {
-        'simrat39/rust-tools.nvim',
-        requires = 'nvim-lua/plenary.nvim',
-        config = function ()
-            -- Update this path
-            local extension_path = '/usr/lib/codelldb/'
-            local codelldb_path = extension_path .. 'adapter/codelldb'
-            local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
-
-            local opts = {
-                dap = {
-                    adapter = require('rust-tools.dap').get_codelldb_adapter(
-                        codelldb_path, liblldb_path)
-                }
-            }
-
-            -- Normal setup
-            require('rust-tools').setup(opts)
-        end
-    }
-
-    use {
-        'folke/which-key.nvim', -- Spacemacs style popup for keybindings
-        config = function ()
-            require('which-key').setup {}
-        end
-    }
-
-    use ({"ziontee113/color-picker.nvim",
-        config = function()
-            require("color-picker")
-        end,
+  use ({"ziontee113/color-picker.nvim",
+    config = function()
+      require("color-picker")
+    end,
 })
 
 use {
-    "mxsdev/nvim-dap-vscode-js",
-    requires = {"mfussenegger/nvim-dap"},
+  "mxsdev/nvim-dap-vscode-js",
+  requires = {"mfussenegger/nvim-dap"},
 }
 
 use {
@@ -360,36 +331,39 @@ use {
 use 'suketa/nvim-dap-ruby'
 
 use {
-    "glepnir/lspsaga.nvim",
-    branch = "main",
-    config = function()
-        local saga = require("lspsaga")
+  "glepnir/lspsaga.nvim",
+  branch = "main",
+  config = function()
+    local saga = require("lspsaga")
 
-        saga.init_lsp_saga({
-            -- your configuration
-        })
-    end,
+    saga.init_lsp_saga({
+      code_action_lightbulb = {
+        sign_priority = 10,
+        virtual_text = false,
+      },
+    })
+  end,
 }
 
 use {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-    requires = {
-        "nvim-lua/plenary.nvim",
-        "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-        "MunifTanjim/nui.nvim",
-    },
-    config = function()
-        vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-        require("neo-tree").setup({
-            close_if_last_window = true,
-            source_selector = {
-                winbar = false,
-                statusline = false
-            }
-        })
-    end
+  "nvim-neo-tree/neo-tree.nvim",
+  branch = "v2.x",
+  requires = {
+    "nvim-lua/plenary.nvim",
+    "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+    "MunifTanjim/nui.nvim",
+  },
+  config = function()
+    vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+    require("neo-tree").setup({
+      close_if_last_window = true,
+      source_selector = {
+        winbar = false,
+        statusline = false
+      },
 
-  }
+    })
+  end
+}
 
 end)
