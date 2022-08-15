@@ -82,8 +82,15 @@ require'lspconfig'.texlab.setup{
             }
         }
     }
-
 }
 
 -- python
 require'lspconfig'.pylsp.setup{}
+
+
+-- typescript
+require'lspconfig'.tsserver.setup{}
+
+
+-- ruby
+require'lspconfig'.solargraph.setup({})

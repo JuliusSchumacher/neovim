@@ -8,7 +8,8 @@ local opts = { noremap=true, silent=true }
 g.mapleader = " "
 
 -- tree
-map('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
+-- map('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
+map('n', '<C-n>', ':Neotree reveal toggle<CR>', opts)
 
 -- w/q aliases
 cmd([[
@@ -27,16 +28,17 @@ cmd([[
 map('n', 'zz', 'za', opts)
 
 -- bufferline
-map('', '<TAB>', ':BufferLineCycleNext<CR>', {noremap = true, silent = true})
-map('', '<S-TAB>', ':BufferLineCyclePrev<CR>', {noremap = true, silent = true})
-map('n', 'gb', ':BufferLinePick<CR>', {noremap = true, silent = true})
-map('n', '<leader>q', ':bw<CR>', {noremap = true, silent = true})
+map('', '<TAB>', ':BufferLineCycleNext<CR>', opts)
+map('', '<S-TAB>', ':BufferLineCyclePrev<CR>', opts)
+map('n', 'gb', ':BufferLinePick<CR>', opts)
+map('n', '<leader>q', ':bw<CR>', opts)
+map('n', '<leader>fb', '<cmd>Telescope buffers<CR>', opts)
 
 -- restart
-map('n', '<leader>r', ':Reload<CR>',{noremap = true})
+-- map('n', '<leader>r', ':Reload<CR>',{noremap = true})
 
 -- edit init.lua
-map('n', '<leader>ev', ':edit $MYVIMRC<CR>',{noremap = true, silent = true})
+map('n', '<leader>ev', ':edit $MYVIMRC<CR>', opts)
 
 -- lsp-config
 -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -91,11 +93,15 @@ map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>',
 
 -- dap
 map('n', '<F5>', '<cmd>lua require("dap").continue()<CR>', opts)
+map('n', '<F6>', '<cmd>lua require("dap").terminate()<CR>', opts)
+map('n', '<F8>', '<cmd>lua require("dap").toggle_breakpoint()<CR>', opts)
 map('n', '<leader>bp', '<cmd>lua require("dap").toggle_breakpoint()<CR>', opts)
 map('n', '<F10>', '<cmd>lua require("dap").step_over()<CR>', opts)
 map('n', '<F11>', '<cmd>lua require("dap").step_into()<CR>', opts)
 map('n', '<F12>', '<cmd>lua require("dap").step_out()<CR>', opts)
 
+
+map('n', '<leader>ur', '<cmd>DapToggleRepl<CR>', opts)
 map('n', '<leader>uo', '<cmd>lua require("dapui").toggle()<CR>', opts)
 map('n', '<M-k>', '<cmd>lua require("dapui").eval()<CR>', opts)
 map('v', '<M-k>', '<cmd>lua require("dapui").eval()<CR>', opts)

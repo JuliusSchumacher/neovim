@@ -24,10 +24,10 @@ local colors = {
     fg      = from_theme[8],
     bg      = from_theme[1],
     red     = from_theme[2],
-    yellow  = from_theme[3],
-    green   = from_theme[4],
-    cyan    = from_theme[5],
-    blue    = from_theme[6],
+    green   = from_theme[3],
+    yellow  = from_theme[4],
+    cyan    = from_theme[6],
+    blue    = from_theme[5],
     magenta = from_theme[7]
 }
 

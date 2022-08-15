@@ -1,4 +1,18 @@
--- configurations for plugins and filetype specifics
+-- install packer if not already present
+local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    print 'Installing packer...'
+    vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path }
+    vim.cmd 'packadd packer.nvim'
+    print 'Installed packer!'
+    require 'plugins'
+    print 'Installing plugins... Restart nvim after installation is complete'
+    require('packer').sync()
+
+    -- don't do anything else
+    return
+end
+
 require('plugins')
 require('filetype')
 require('keymaps')
@@ -7,9 +21,9 @@ local opt = vim.opt
 local cmd = vim.cmd
 local home = os.getenv('HOME')
 
--- default things everyone does
-opt.encoding = "utf-8"
-opt.hidden = true
+-- timeout
+opt.timeoutlen = 500
+opt.updatetime = 100
 
 -- line numbers
 opt.number = true
@@ -53,7 +67,7 @@ cmd([[ autocmd BufWritePre * %s/\s\+$//e ]])
 cmd([[ au BufReadPost,BufEnter * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
 
 -- Colorscheme
-cmd([[ colorscheme lush_wal ]])
+cmd([[ colorscheme gruvbox ]])
 opt.termguicolors = true
 -- Syntax on
 cmd([[ syntax on ]])
@@ -62,6 +76,7 @@ cmd([[ highlight Comment cterm=italic ]])
 
 cmd [[ hi Pmenu ctermbg=0 ]]
 
+opt.cursorline = true
 
 
 -- fold settings
@@ -73,4 +88,12 @@ vim.wo.fillchars = "fold:\\"
 vim.wo.foldnestmax = 3
 vim.wo.foldminlines = 1
 
-cmd [[ autocmd BufReadPost,FileReadPost,BufEnter * :normal zR " unfold by default ]]
+-- unfold
+cmd [[  autocmd BufWinEnter * silent! :%foldopen! ]]
+
+-- Don't insert an extra space after a period when joining lines with J.
+opt.joinspaces = false
+--
+-- Instead of failing a command because of unsaved changes, raise a dialogue asking if you wish to save changed files.
+opt.confirm = true
+

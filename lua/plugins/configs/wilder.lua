@@ -1,7 +1,7 @@
-require('theme.colors')
+local colors = require('theme.colors')
 local cmd = vim.cmd
 
-cmd(string.format("let g:color = '%s'", colors(5)))
+cmd(string.format("let g:color = '%s'", colors.red))
 
 cmd [[
 call wilder#setup({'modes': [':', '/', '?']})

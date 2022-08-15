@@ -267,11 +267,14 @@ require'feline'.setup {
     force_inactive = {
         filetypes = {
             'packer',
+            'neo-tree',
             'NvimTree',
             'fugitive',
-            'fugitiveblame'
+            'fugitiveblame',
         },
-        buftypes = {'terminal'},
+        buftypes = {
+          'terminal',
+      },
         bufnames = {}
     }
 }

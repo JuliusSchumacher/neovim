@@ -22,7 +22,7 @@ require('packer').startup(function()
     }
 
 
-    use {
+    --[[ use {
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
@@ -46,13 +46,15 @@ require('packer').startup(function()
             }
             require('plugins.configs.nvimtree')
         end
-    }
+    } ]]
 
     -- Theming
     use 'rktjmp/lush.nvim'
     use 'juliusschumacher/wal.vim'
     use "juliusschumacher/lush_wal"
     use 'wuelnerdotexe/vim-enfocado'
+    use 'rebelot/kanagawa.nvim'
+    use "ellisonleao/gruvbox.nvim"
 
     use {
         "lukas-reineke/indent-blankline.nvim",
@@ -182,6 +184,23 @@ require('packer').startup(function()
         requires = { 'nvim-lua/plenary.nvim' },
         config = function()
             require('telescope').setup({
+                defaults = {
+                    -- Switch between horizontal and vertical layout based on terminal width
+                    layout_strategy = 'flex',
+                    layout_config = {
+                        width = 0.999,
+                        height = 0.7,
+                        anchor = 'S',
+                        flex = {
+                            -- Use vertical layout when under 150 lines
+                            flip_columns = 150,
+                        },
+                        horizontal = {
+                            -- Slightly larger preview (default: 0.5)
+                            preview_width = 0.6,
+                        },
+                    },
+                },
                 extensions = {
                     lsp_handlers = {
                         code_action = {
@@ -250,9 +269,9 @@ require('packer').startup(function()
                 },
                 level = 2,
                 minimum_width = 50,
-                render = "default",
+                render = "minimal",
                 stages = "slide",
-                timeout = 5000
+                timeout = 1000
               }
         ;
             vim.notify = notify
@@ -293,5 +312,84 @@ require('packer').startup(function()
         end
     }
 
+    use {
+        'simrat39/rust-tools.nvim',
+        requires = 'nvim-lua/plenary.nvim',
+        config = function ()
+            -- Update this path
+            local extension_path = '/usr/lib/codelldb/'
+            local codelldb_path = extension_path .. 'adapter/codelldb'
+            local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
+
+            local opts = {
+                dap = {
+                    adapter = require('rust-tools.dap').get_codelldb_adapter(
+                        codelldb_path, liblldb_path)
+                }
+            }
+
+            -- Normal setup
+            require('rust-tools').setup(opts)
+        end
+    }
+
+    use {
+        'folke/which-key.nvim', -- Spacemacs style popup for keybindings
+        config = function ()
+            require('which-key').setup {}
+        end
+    }
+
+    use ({"ziontee113/color-picker.nvim",
+        config = function()
+            require("color-picker")
+        end,
+})
+
+use {
+    "mxsdev/nvim-dap-vscode-js",
+    requires = {"mfussenegger/nvim-dap"},
+}
+
+use {
+  "microsoft/vscode-js-debug",
+  opt = true,
+  run = "npm install --legacy-peer-deps && npm run compile"
+}
+
+use 'suketa/nvim-dap-ruby'
+
+use {
+    "glepnir/lspsaga.nvim",
+    branch = "main",
+    config = function()
+        local saga = require("lspsaga")
+
+        saga.init_lsp_saga({
+            -- your configuration
+        })
+    end,
+}
+
+use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = {
+        "nvim-lua/plenary.nvim",
+        "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+    },
+    config = function()
+        vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+        require("neo-tree").setup({
+            close_if_last_window = true,
+            source_selector = {
+                winbar = false,
+                statusline = false
+            }
+        })
+    end
+
+  }
 
 end)

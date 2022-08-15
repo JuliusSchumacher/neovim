@@ -33,11 +33,12 @@ dapui.setup({
     {
       elements = {
       -- Elements can be strings or table with id and size keys.
-        "console",
+        "repl",
+        -- "console",
         "scopes",
         -- "breakpoints",
         -- "stacks",
-        -- "watches",
+        "watches",
       },
       size = 40, -- 40 columns
       position = "left",
@@ -69,7 +70,7 @@ dapui.setup({
 dap.adapters.netcoredbg = {
   type = 'executable',
   command = '/usr/sbin/netcoredbg',
-  args = {'--interpreter=vscode'}
+  args = {'--interpreter=vscode', '--hot-reload'}
 }
 
 dap.configurations.cs = {
@@ -88,3 +89,69 @@ dap.configurations.cs = {
 -- python
 require('dap-python').setup('/usr/bin/python')
 
+-- rust
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    -- CHANGE THIS to your path!
+    command = '/usr/bin/codelldb',
+    args = {"--port", "${port}"},
+
+    -- On windows you may have to uncomment this:
+    -- detached = false,
+  }
+}
+
+dap.configurations.rust = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = true,
+  },
+}
+
+
+-- typescript
+require("dap-vscode-js").setup({
+    node_path = "ts-node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
+    -- debugger_path = "(runtimedir)/site/pack/packer/opt/vscode-js-debug", -- Path to vscode-js-debug installation.
+    adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
+})
+
+for _, language in ipairs({ "typescript", "javascript" }) do
+  require("dap").configurations[language] = {
+    {
+      type = "pwa-node",
+      request = "launch",
+      name = "Launch Nodemon",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+      runtimeExecutable = "nodemon"
+    },
+    {
+      type = "pwa-node",
+      request = "launch",
+      name = "Launch",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+      runtimeExecutable = "ts-node"
+    },
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach",
+      processId = require'dap.utils'.pick_process,
+      cwd = "${workspaceFolder}",
+    }
+  }
+end
+
+
+-- ruby
+require('dap-ruby').setup()
