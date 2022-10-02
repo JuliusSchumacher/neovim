@@ -50,6 +50,7 @@ local comps = {
         }
         return val
       end,
+      left_sep = ' ',
       right_sep = ' '
     },
     right = {
@@ -174,9 +175,9 @@ local comps = {
   lsp = {
     name = {
       provider = 'lsp_client_names',
-      -- left_sep = ' ',
+      left_sep = ' ',
       right_sep = ' ',
-      icon = ' ',
+      icon = '  ',
       hl = {
         fg = colors.yellow
       }
@@ -230,8 +231,6 @@ table.insert(components.active[1], comps.git.branch)
 table.insert(components.active[1], comps.git.add)
 table.insert(components.active[1], comps.git.change)
 table.insert(components.active[1], comps.git.remove)
-table.insert(components.inactive[1], comps.vi_mode.left)
-table.insert(components.inactive[1], comps.file.info)
 table.insert(components.active[3], comps.diagnos.err)
 table.insert(components.active[3], comps.diagnos.warn)
 table.insert(components.active[3], comps.diagnos.hint)

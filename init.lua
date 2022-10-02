@@ -67,7 +67,7 @@ cmd([[ autocmd BufWritePre * %s/\s\+$//e ]])
 cmd([[ au BufReadPost,BufEnter * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
 
 -- Colorscheme
-cmd([[ colorscheme gruvbox ]])
+cmd([[ colorscheme lush_wal ]])
 opt.termguicolors = true
 -- Syntax on
 cmd([[ syntax on ]])
