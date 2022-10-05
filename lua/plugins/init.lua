@@ -101,7 +101,7 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
-  use {
+ use {
     'tzachar/cmp-tabnine',
     run='./install.sh',
   }
@@ -113,13 +113,13 @@ require('packer').startup(function()
     end
   }
 
-  use {
+  --[[ use {
     'akinsho/bufferline.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('plugins.configs.bufferline')
     end
-  }
+  } ]]
 
   use 'famiu/nvim-reload'
 
@@ -363,6 +363,40 @@ use {
       },
 
     })
+  end
+}
+
+use {
+  'MunifTanjim/prettier.nvim',
+  requires = {
+    "jose-elias-alvarez/null-ls.nvim"
+  },
+  config = function()
+
+    local prettier = require("prettier")
+
+    prettier.setup({
+      bin = 'prettier', -- or `'prettierd'` (v0.22+)
+      cli_options = {
+
+      },
+      filetypes = {
+        "css",
+        "graphql",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "less",
+        "markdown",
+        "scss",
+        "typescript",
+        "typescriptreact",
+        "yaml",
+      },
+    })
+
+    prettier.config_exits({check_package_json = true})
   end
 }
 

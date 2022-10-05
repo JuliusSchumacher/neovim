@@ -91,6 +91,7 @@ map('n', '<leader>dg', '<cmd>lua require("telescope.builtin").lsp_workspace_diag
 map('n', '<leader>D', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)
 map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)
+map('n', '<leader>rg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
 
 -- dap
 map('n', '<F5>', '<cmd>lua require("dap").continue()<CR>', opts)

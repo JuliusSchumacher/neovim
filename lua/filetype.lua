@@ -82,10 +82,14 @@ require'lspconfig'.texlab.setup{
 }
 
 -- python
-require'lspconfig'.pylsp.setup{}
+lsp.pylsp.setup{}
 
 -- typescript
-require'lspconfig'.tsserver.setup{}
+lsp.tsserver.setup{}
+vim.cmd [[ autocmd BufWritePost * Prettier ]]
+
+-- angular
+lsp.angularls.setup{}
 
 -- ruby
-require'lspconfig'.solargraph.setup({})
+lsp.solargraph.setup({})
