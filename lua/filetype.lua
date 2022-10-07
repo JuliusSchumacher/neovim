@@ -86,7 +86,7 @@ lsp.pylsp.setup{}
 
 -- typescript
 lsp.tsserver.setup{}
-vim.cmd [[ autocmd BufWritePost * Prettier ]]
+vim.cmd [[ autocmd BufWritePre * Prettier ]]
 
 -- angular
 lsp.angularls.setup{}

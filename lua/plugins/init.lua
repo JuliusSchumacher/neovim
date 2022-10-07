@@ -327,6 +327,11 @@ use {
   opt = true,
   run = "npm install --legacy-peer-deps && npm run compile"
 }
+ use {
+  "microsoft/vscode-chrome-debug",
+  opt = true,
+  run = "npm install && npm run compile"
+}
 
 use 'suketa/nvim-dap-ruby'
 

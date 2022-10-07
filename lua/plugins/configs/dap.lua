@@ -119,8 +119,25 @@ require("dap-vscode-js").setup({
   adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
 })
 
+dap.adapters.chrome = {
+  type = "executable",
+  command = "node",
+  args = { os.getenv("HOME") .. "/.local/share/nvim/site/pack/packer/opt/vscode-chrome-debug/out/src/chromeDebug.js" }
+}
+
 for _, language in ipairs({ "typescript", "javascript" }) do
   require("dap").configurations[language] = {
+    {
+      name = "Launch Chrome",
+      type = "chrome",
+      request = "launch",
+      sourceMaps = true,
+      trace = true,
+      port = 9222,
+      webRoot = "${workspaceFolder}",
+      runtimeExecutable = "/usr/bin/google-chrome-stable",
+      runtimeArgs = { "--app=http://localhost" }
+    },
   {
     type = "pwa-node",
     request = "launch",
