@@ -382,6 +382,32 @@ use {
     prettier.config_exits({check_package_json = true})
   end
 }
-  use({ 'vladdoster/remember.nvim', config = [[ require('remember') ]] })
+  use {
+    'vladdoster/remember.nvim',
+    config = function ()
+      require('remember')
+    end
+  }
+  use {
+    'simrat39/symbols-outline.nvim',
+    config = function()
+      require("symbols-outline").setup()
+    end
+  }
+
+  use {
+    "nvim-telescope/telescope-frecency.nvim",
+    config = function()
+      require"telescope".load_extension("frecency")
+    end,
+    requires = {"kkharji/sqlite.lua"}
+  }
+
+  use {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      require("lsp_lines").setup()
+    end,
+  }
 
 end)

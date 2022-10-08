@@ -18,4 +18,5 @@ vim.diagnostic.config({
     severity = vim.diagnostic.severity.ERROR,
     source = true,
   },
+  virtual_lines = false,
 })

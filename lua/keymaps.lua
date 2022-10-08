@@ -28,30 +28,33 @@ map('n', 'zz', 'za', opts)
 
 -- buffers
 map('n', '<leader>q', ':bw<CR>', opts)
-map('n', '<leader>fb', '<cmd>Telescope buffers<CR>', opts)
 
 -- edit init.lua
 map('n', '<leader>ev', ':edit $MYVIMRC<CR>', opts)
 map('n', '<leader>sv', ':source $MYVIMRC<CR>', opts)
 
+
 -- lsp-config
 -- See `:help vim.lsp.*` for documentation on any of the below functions
-map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
 map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
 map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-map('n', '<leader>e', '<cmd>Lspsaga show_line_diagnostics<CR>', opts)
-map('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opts)
-map('v', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opts)
+map('n', '<leader>e', '<cmd>lua require"lsp_lines".toggle()<CR>', opts)
+map('n', '<leader>ca', '<cmd>CodeActionMenu<CR>', opts)
+map('v', '<leader>ca', '<cmd>CodeActionMenu<CR>', opts)
 vim.keymap.set("n", "<leader>rn", function ()
     return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true, silent = true })
+vim.g.code_action_menu_show_details = true
+vim.g.code_action_menu_show_diff = true
+
 
 
 -- gitsigns
@@ -81,9 +84,10 @@ map('n', '<leader>fs', '<cmd>lua require("telescope.builtin").lsp_dynamic_worksp
 map('n', '<leader>dg', '<cmd>lua require("telescope.builtin").diagnostics(require("telescope.themes").get_dropdown({}))<CR>', opts)
 map('n', '<leader>D', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)
 map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)
+map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({}))<CR>', opts)
 map('n', '<leader>rg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
 map('n', '<leader>rG', '<cmd>lua require("telescope.builtin").grep_string()<CR>', opts)
+map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers( require("telescope.themes").get_dropdown({}) )<CR>', opts)
 
 -- dap
 map('n', '<F5>', '<cmd>lua require("dap").continue()<CR>', opts)

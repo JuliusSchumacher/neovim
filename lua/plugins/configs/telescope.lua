@@ -74,3 +74,4 @@ hl(0, 'TelescopePromptTitle', { fg=colors.bg , bg=colors.red })
 hl(0, 'TelescopePreviewTitle', { fg=colors.black, bg=colors.green })
 hl(0, 'TelescopePreviewNormal', { fg=colors.fg, bg=grey })
 hl(0, 'TelescopePreviewBorder', { fg=grey, bg=grey })
+
