@@ -136,7 +136,7 @@ for _, language in ipairs({ "typescript", "javascript" }) do
       port = 9222,
       webRoot = "${workspaceFolder}",
       runtimeExecutable = "/usr/bin/google-chrome-stable",
-      runtimeArgs = { "--app=http://localhost" }
+      runtimeArgs = { "--app=http://localhost", "--remote-debugging-port=9222" }
     },
   {
     type = "pwa-node",

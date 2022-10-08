@@ -155,32 +155,7 @@ require('packer').startup(function()
     'nvim-telescope/telescope.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('telescope').setup({
-        defaults = {
-          -- Switch between horizontal and vertical layout based on terminal width
-          layout_strategy = 'flex',
-          layout_config = {
-            width = 0.999,
-            height = 0.7,
-            anchor = 'S',
-            flex = {
-              -- Use vertical layout when under 150 lines
-              flip_columns = 150,
-            },
-            horizontal = {
-              -- Slightly larger preview (default: 0.5)
-              preview_width = 0.6,
-            },
-          },
-        },
-        extensions = {
-          lsp_handlers = {
-            code_action = {
-              telescope = require("telescope.themes").get_dropdown({}),
-            },
-          },
-        },
-      })
+      require('plugins.configs.telescope')
       require('telescope').load_extension('lsp_handlers')
       require('telescope').load_extension('fzf')
       require('telescope').load_extension('dap')
