@@ -15,6 +15,7 @@ vim.diagnostic.config({
   underline = true,
   severity_sort = true,
   virtual_text = {
+    severity = vim.diagnostic.severity.ERROR,
     source = true,
   },
 })

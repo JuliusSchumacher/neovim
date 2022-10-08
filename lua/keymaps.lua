@@ -26,18 +26,13 @@ cmd([[
 
 map('n', 'zz', 'za', opts)
 
--- bufferline
-map('', '<TAB>', ':BufferLineCycleNext<CR>', opts)
-map('', '<S-TAB>', ':BufferLineCyclePrev<CR>', opts)
-map('n', 'gb', ':BufferLinePick<CR>', opts)
+-- buffers
 map('n', '<leader>q', ':bw<CR>', opts)
 map('n', '<leader>fb', '<cmd>Telescope buffers<CR>', opts)
 
--- restart
--- map('n', '<leader>r', ':Reload<CR>',{noremap = true})
-
 -- edit init.lua
 map('n', '<leader>ev', ':edit $MYVIMRC<CR>', opts)
+map('n', '<leader>sv', ':source $MYVIMRC<CR>', opts)
 
 -- lsp-config
 -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -50,14 +45,13 @@ map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
 map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
 map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-map('n', '<leader>rn', '<cmd>lua require("inc_rename").rename({ default = vim.fn.expand("<cword>") })<CR>', opts)
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 map('n', '<leader>e', '<cmd>Lspsaga show_line_diagnostics<CR>', opts)
-map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
--- map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 map('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opts)
 map('v', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opts)
+vim.keymap.set("n", "<leader>rn", function ()
+    return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true, silent = true })
 
 
 -- gitsigns
@@ -84,14 +78,12 @@ map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 map('n', '<leader>fS', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>', opts)
 map('n', '<leader>fs', '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>', opts)
--- map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
--- map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-map('n', '<leader>dG', '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
-map('n', '<leader>dg', '<cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', opts)
+map('n', '<leader>dg', '<cmd>lua require("telescope.builtin").diagnostics(require("telescope.themes").get_dropdown({}))<CR>', opts)
 map('n', '<leader>D', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)
 map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)
 map('n', '<leader>rg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
+map('n', '<leader>rG', '<cmd>lua require("telescope.builtin").grep_string()<CR>', opts)
 
 -- dap
 map('n', '<F5>', '<cmd>lua require("dap").continue()<CR>', opts)
@@ -107,4 +99,5 @@ map('n', '<leader>ur', '<cmd>DapToggleRepl<CR>', opts)
 map('n', '<leader>uo', '<cmd>lua require("dapui").toggle()<CR>', opts)
 map('n', '<M-k>', '<cmd>lua require("dapui").eval()<CR>', opts)
 map('v', '<M-k>', '<cmd>lua require("dapui").eval()<CR>', opts)
+
 

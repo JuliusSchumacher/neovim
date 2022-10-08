@@ -4,6 +4,7 @@ require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+  use 'nvim-treesitter/nvim-treesitter-context'
 
   use 'tpope/vim-repeat'
   use 'tpope/vim-sensible'
@@ -242,7 +243,9 @@ require('packer').startup(function()
   use {
     "smjonas/inc-rename.nvim",
     config = function()
-      require("inc_rename").setup()
+      require("inc_rename").setup {
+        input_buffer_type = "dressing",
+      }
     end,
   }
 
@@ -379,5 +382,6 @@ use {
     prettier.config_exits({check_package_json = true})
   end
 }
+  use({ 'vladdoster/remember.nvim', config = [[ require('remember') ]] })
 
 end)

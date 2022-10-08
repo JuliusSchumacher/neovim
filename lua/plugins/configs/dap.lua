@@ -119,6 +119,12 @@ require("dap-vscode-js").setup({
   adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
 })
 
+dap.adapters.node2 = {
+  type = 'executable',
+  command = 'ts-node',
+  args = {os.getenv('HOME') .. '/.local/share/nvim/site/pack/packer/opt/vscode-node-debug2/out/src/nodeDebug.js'},
+  }
+
 dap.adapters.chrome = {
   type = "executable",
   command = "node",
@@ -136,31 +142,31 @@ for _, language in ipairs({ "typescript", "javascript" }) do
       port = 9222,
       webRoot = "${workspaceFolder}",
       runtimeExecutable = "/usr/bin/google-chrome-stable",
-      runtimeArgs = { "--app=http://localhost", "--remote-debugging-port=9222" }
+      runtimeArgs = { "--app=http://localhost", "--remote-debugging-port=9222" },
     },
-  {
-    type = "pwa-node",
-    request = "launch",
-    name = "Launch Nodemon",
-    program = "${file}",
-    cwd = "${workspaceFolder}",
-    runtimeExecutable = "nodemon"
-  },
-  {
-    type = "pwa-node",
-    request = "launch",
-    name = "Launch",
-    program = "${file}",
-    cwd = "${workspaceFolder}",
-    runtimeExecutable = "ts-node"
-  },
-  {
-    type = "pwa-node",
-    request = "attach",
-    name = "Attach",
-    processId = require'dap.utils'.pick_process,
-    cwd = "${workspaceFolder}",
-  }
+    {
+      type = "pwa-node",
+      request = "launch",
+      name = "Launch Nodemon",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+      runtimeExecutable = "nodemon",
+    },
+    {
+      type = "pwa-node",
+      request = "launch",
+      name = "Launch",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+      runtimeExecutable = "ts-node"
+    },
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach",
+      processId = require'dap.utils'.pick_process,
+      cwd = "${workspaceFolder}",
+    },
   }
 end
 
