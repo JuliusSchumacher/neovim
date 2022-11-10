@@ -21,13 +21,13 @@ require('bufferline').setup {
       local s = " "
       for e, n in pairs(diagnostics_dict) do
         local sym = e == "error" and " "
-          or (e == "warning" and " " or "" )
+            or (e == "warning" and " " or "")
         s = s .. sym .. n
       end
       return s
     end,
     custom_filter = function(buf_number, buf_numbers)
-        -- filter out by buffer name
+      -- filter out by buffer name
       if vim.fn.bufname(buf_number) ~= "[dap-repl]" then
         return true
       end

@@ -3,8 +3,18 @@ require('packer').startup(function()
 
   use 'wbthomason/packer.nvim'
 
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-  use 'nvim-treesitter/nvim-treesitter-context'
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        highlight = {
+          enable = true
+        },
+        indent = {
+          enable = true
+        }
+      }
+    end
+  }
 
   use 'tpope/vim-repeat'
   use 'tpope/vim-sensible'
@@ -55,7 +65,7 @@ require('packer').startup(function()
   use {
     'lewis6991/gitsigns.nvim',
     requires = {
-    'nvim-lua/plenary.nvim'
+      'nvim-lua/plenary.nvim'
     },
     config = function()
       require('plugins.configs.gitsigns')
@@ -102,9 +112,9 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
- use {
+  use {
     'tzachar/cmp-tabnine',
-    run='./install.sh',
+    run = './install.sh',
   }
 
   use {
@@ -127,7 +137,7 @@ require('packer').startup(function()
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'make',
-    }
+  }
 
   use {
     'gbrlsnchs/telescope-lsp-handlers.nvim',
@@ -135,7 +145,7 @@ require('packer').startup(function()
 
   use {
     "rcarriga/nvim-dap-ui",
-    requires = {"mfussenegger/nvim-dap"},
+    requires = { "mfussenegger/nvim-dap" },
     config = function()
       require('plugins.configs.dap')
     end
@@ -170,7 +180,7 @@ require('packer').startup(function()
     'gelguy/wilder.nvim',
     rocks = { 'fzy-lua-native' },
     run = ':UpdateRemotePlugins',
-    config = function ()
+    config = function()
       require('plugins.configs.wilder')
     end
   }
@@ -257,14 +267,14 @@ require('packer').startup(function()
   use {
     'j-hui/fidget.nvim',
     config = function()
-      require'fidget'.setup()
+      require 'fidget'.setup()
     end
   }
 
   use {
     'simrat39/rust-tools.nvim',
     requires = 'nvim-lua/plenary.nvim',
-    config = function ()
+    config = function()
       -- Update this path
       local extension_path = '/usr/lib/codelldb/'
       local codelldb_path = extension_path .. 'adapter/codelldb'
@@ -284,107 +294,110 @@ require('packer').startup(function()
 
   use {
     'folke/which-key.nvim', -- Spacemacs style popup for keybindings
-    config = function ()
+    config = function()
       require('which-key').setup {}
     end
   }
 
-  use ({"ziontee113/color-picker.nvim",
+  use({ "ziontee113/color-picker.nvim",
     config = function()
       require("color-picker")
     end,
-})
+  })
 
-use {
-  "mxsdev/nvim-dap-vscode-js",
-  requires = {"mfussenegger/nvim-dap"},
-}
+  use {
+    "mxsdev/nvim-dap-vscode-js",
+    requires = { "mfussenegger/nvim-dap" },
+  }
 
-use {
-  "microsoft/vscode-js-debug",
-  opt = true,
-  run = "npm install --legacy-peer-deps && npm run compile"
-}
- use {
-  "microsoft/vscode-chrome-debug",
-  opt = true,
-  run = "npm install && npm run compile"
-}
+  use {
+    "microsoft/vscode-js-debug",
+    opt = true,
+    run = "npm install --legacy-peer-deps && npm run compile"
+  }
+  use {
+    "microsoft/vscode-chrome-debug",
+    opt = true,
+    run = "npm install && npm run compile"
+  }
 
-use 'suketa/nvim-dap-ruby'
+  use 'suketa/nvim-dap-ruby'
 
-use {
-  "glepnir/lspsaga.nvim",
-  branch = "main",
-  config = function()
-    local saga = require("lspsaga")
+  use {
+    "glepnir/lspsaga.nvim",
+    branch = "main",
+    config = function()
+      local saga = require("lspsaga")
 
-    saga.init_lsp_saga({
-      code_action_lightbulb = {
-        sign_priority = 10,
-        virtual_text = false,
-      },
-    })
-  end,
-}
+      saga.init_lsp_saga({
+        code_action_lightbulb = {
+          sign_priority = 10,
+          virtual_text = false,
+        },
+      })
+    end,
+  }
 
-use {
-  "nvim-neo-tree/neo-tree.nvim",
-  branch = "v2.x",
-  requires = {
-    "nvim-lua/plenary.nvim",
-    "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-    "MunifTanjim/nui.nvim",
-  },
-  config = function()
-    vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-    require("neo-tree").setup({
-      close_if_last_window = true,
-      source_selector = {
-        winbar = false,
-        statusline = false
-      },
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+      require("neo-tree").setup({
+        close_if_last_window = true,
+        source_selector = {
+          winbar = false,
+          statusline = false
+        },
 
-    })
-  end
-}
+      })
+    end
+  }
 
-use {
-  'MunifTanjim/prettier.nvim',
-  requires = {
-    "jose-elias-alvarez/null-ls.nvim"
-  },
-  config = function()
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    config = function()
+      require('plugins.configs.null-ls')
+    end,
+    requires = { "nvim-lua/plenary" }
+  }
 
-    local prettier = require("prettier")
+  use {
+    'MunifTanjim/prettier.nvim',
+    requires = {
+      "jose-elias-alvarez/null-ls.nvim"
+    },
+    config = function()
 
-    prettier.setup({
-      bin = 'prettier', -- or `'prettierd'` (v0.22+)
-      cli_options = {
+      local prettier = require("prettier")
 
-      },
-      filetypes = {
-        "css",
-        "graphql",
-        "html",
-        "javascript",
-        "javascriptreact",
-        "json",
-        "less",
-        "markdown",
-        "scss",
-        "typescript",
-        "typescriptreact",
-        "yaml",
-      },
-    })
-
-    prettier.config_exits({check_package_json = true})
-  end
-}
+      prettier.setup({
+        bin = 'prettier', -- or `'prettierd'` (v0.22+)
+        filetypes = {
+          "css",
+          "graphql",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "json",
+          "less",
+          "markdown",
+          "scss",
+          "typescript",
+          "typescriptreact",
+          "yaml",
+        },
+      })
+    end
+  }
   use {
     'vladdoster/remember.nvim',
-    config = function ()
+    config = function()
       require('remember')
     end
   }
@@ -398,9 +411,9 @@ use {
   use {
     "nvim-telescope/telescope-frecency.nvim",
     config = function()
-      require"telescope".load_extension("frecency")
+      require "telescope".load_extension("frecency")
     end,
-    requires = {"kkharji/sqlite.lua"}
+    requires = { "kkharji/sqlite.lua" }
   }
 
   use {
@@ -408,6 +421,12 @@ use {
     config = function()
       require("lsp_lines").setup()
     end,
+  }
+  use 'echasnovski/mini.nvim'
+
+  use {
+    'LukasPietzschmann/telescope-sessions',
+    requires = { 'LukasPietzschmann/sessions.nvim' }
   }
 
 end)

@@ -31,7 +31,7 @@ local vi_mode_utils = require 'feline.providers.vi_mode'
 
 local lsp_get_diag = function(str)
   local count = lsp.get_diagnostics_count(str)
-  return (count > 0) and ' '..count..' ' or ''
+  return (count > 0) and ' ' .. count .. ' ' or ''
 end
 
 -- LuaFormatter off
@@ -55,7 +55,7 @@ local comps = {
     },
     right = {
       -- provider = '▊',
-      provider = '' ,
+      provider = '',
       hl = function()
         local val = {
           name = vi_mode_utils.get_mode_highlight_name(),
@@ -141,7 +141,7 @@ local comps = {
     warn = {
       -- provider = 'diagnostic_warnings',
       provider = function()
-        return '' ..  lsp_get_diag("Warn")
+        return '' .. lsp_get_diag("Warn")
       end,
       -- left_sep = ' ',
       enabled = function() return lsp.diagnostics_exist('Warn') end,
@@ -259,7 +259,7 @@ table.insert(components.active[3], comps.scroll_bar)
 -- })
 
 -- require'feline'.setup {}
-require'feline'.setup {
+require 'feline'.setup {
   colors = { bg = colors.bg, fg = colors.fg },
   components = components,
   vi_mode_colors = vi_mode_colors,
@@ -277,4 +277,3 @@ require'feline'.setup {
     bufnames = {}
   }
 }
-

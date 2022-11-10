@@ -61,17 +61,16 @@ telescope.setup(options)
 
 -- theming
 local hl = vim.api.nvim_set_hl
-local colors = require'theme.colors'
-local lush = require'lush_theme.lush_wal'
+local colors = require 'theme.colors'
+local lush = require 'lush_theme.lush_wal'
 
 local grey = lush.NormalFloat.bg.hex
 
-hl(0, 'TelescopeBorder', { fg=colors.bg })
-hl(0, 'TelescopePromptPrefix', { fg=colors.red, bg=grey})
-hl(0, 'TelescopePromptBorder', { fg=grey, bg=grey })
-hl(0, 'TelescopePromptNormal', { fg=colors.fg , bg=grey })
-hl(0, 'TelescopePromptTitle', { fg=colors.bg , bg=colors.red })
-hl(0, 'TelescopePreviewTitle', { fg=colors.black, bg=colors.green })
-hl(0, 'TelescopePreviewNormal', { fg=colors.fg, bg=grey })
-hl(0, 'TelescopePreviewBorder', { fg=grey, bg=grey })
-
+hl(0, 'TelescopeBorder', { fg = colors.bg })
+hl(0, 'TelescopePromptPrefix', { fg = colors.red, bg = grey })
+hl(0, 'TelescopePromptBorder', { fg = grey, bg = grey })
+hl(0, 'TelescopePromptNormal', { fg = colors.fg, bg = grey })
+hl(0, 'TelescopePromptTitle', { fg = colors.bg, bg = colors.red })
+hl(0, 'TelescopePreviewTitle', { fg = colors.black, bg = colors.green })
+hl(0, 'TelescopePreviewNormal', { fg = colors.fg, bg = grey })
+hl(0, 'TelescopePreviewBorder', { fg = grey, bg = grey })

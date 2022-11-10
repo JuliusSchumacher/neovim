@@ -11,34 +11,33 @@ g.nvim_tree_ignore = { ".git", "node_modules", ".cache" }
 g.nvim_tree_side = "left"
 g.nvim_tree_width = 25
 g.nvim_tree_show_icons = {
-   folders = 1,
-   -- folder_arrows= 1
-   files = 1,
-   git = git_status,
+    folders = 1,
+    -- folder_arrows= 1
+    files = 1,
+    git = git_status,
 }
 
 g.nvim_tree_icons = {
-   default = "",
-   symlink = "",
-   git = {
-    deleted = "",
-    ignored = "",
-    renamed = "r",
-    staged = "✓",
-    unmerged = "",
-    unstaged = "x",
-    untracked = "*",
-   },
-   folder = {
-    -- disable indent_markers option to get arrows working or if you want both arrows and indent then just add the arrow icons in front      ofthe default and opened folders below!
-    -- arrow_open = "",
-    -- arrow_closed = "",
-    default = "",
-    empty = "", -- 
-    empty_open = "",
-    open = "",
-    symlink = "",
-    symlink_open = "",
-   },
+    default = "",
+    symlink = "",
+    git = {
+        deleted = "",
+        ignored = "",
+        renamed = "r",
+        staged = "✓",
+        unmerged = "",
+        unstaged = "x",
+        untracked = "*",
+    },
+    folder = {
+        -- disable indent_markers option to get arrows working or if you want both arrows and indent then just add the arrow icons in front      ofthe default and opened folders below!
+        -- arrow_open = "",
+        -- arrow_closed = "",
+        default = "",
+        empty = "", -- 
+        empty_open = "",
+        open = "",
+        symlink = "",
+        symlink_open = "",
+    },
 }
-

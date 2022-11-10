@@ -1,14 +1,10 @@
-local opt = vim.opt
 local g = vim.g
 local cmd = vim.api.nvim_command
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 
 g.mapleader = " "
-
--- tree
-map('n', '<C-n>', ':Neotree reveal toggle<CR>', opts)
 
 -- w/q aliases
 cmd([[
@@ -24,8 +20,6 @@ cmd([[
   cnoreabbrev Qall qall
 ]])
 
-map('n', 'zz', 'za', opts)
-
 -- buffers
 map('n', '<leader>q', ':bw<CR>', opts)
 
@@ -33,75 +27,70 @@ map('n', '<leader>q', ':bw<CR>', opts)
 map('n', '<leader>ev', ':edit $MYVIMRC<CR>', opts)
 map('n', '<leader>sv', ':source $MYVIMRC<CR>', opts)
 
-
 -- lsp-config
 -- See `:help vim.lsp.*` for documentation on any of the below functions
-map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-map('n', '<leader>e', '<cmd>lua require"lsp_lines".toggle()<CR>', opts)
+map('n', 'K', function() vim.lsp.buf.hover() end, opts)
+map('n', 'gd', function() vim.lsp.buf.definition() end, opts)
+map('n', 'gD', function() vim.lsp.buf.declaration() end, opts)
+map('n', 'gr', function() vim.lsp.buf.references() end, opts)
+map('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
+map('n', '<C-k>', function() vim.lsp.buf.signature_help() end, opts)
+map('n', '<leader>D', function() vim.lsp.buf.type_definition() end, opts)
+map('n', '<leader>rn', function() vim.lsp.buf.rename() end, opts)
+map('n', '<leader>e', function() require "lsp_lines".toggle() end, opts)
 map('n', '<leader>ca', '<cmd>CodeActionMenu<CR>', opts)
 map('v', '<leader>ca', '<cmd>CodeActionMenu<CR>', opts)
-vim.keymap.set("n", "<leader>rn", function ()
-    return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true, silent = true })
 vim.g.code_action_menu_show_details = true
 vim.g.code_action_menu_show_diff = true
 
-
-
 -- gitsigns
-map('n', '<leader>hs', '<cmd>lua require"gitsigns".stage_hunk()<CR>', opts)
-map('v', '<leader>hs', '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', opts)
-map('n', '<leader>hu', '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>', opts)
-map('n', '<leader>hr', '<cmd>lua require"gitsigns".reset_hunk()<CR>', opts)
-map('v', '<leader>hr', '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', opts)
-map('n', '<leader>hR', '<cmd>lua require"gitsigns".reset_buffer()<CR>', opts)
-map('n', '<leader>hp', '<cmd>lua require"gitsigns".preview_hunk()<CR>', opts)
-map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line(true)<CR>', opts)
-map('n', '<leader>hS', '<cmd>lua require"gitsigns".stage_buffer()<CR>', opts)
-map('n', '<leader>hU', '<cmd>lua require"gitsigns".reset_buffer_index()<CR>', opts)
+local gitsigns = require('gitsigns')
+local gitsigns_actions = require('gitsigns.actions')
+map('n', '<leader>hs', function() gitsigns.stage_hunk() end, opts)
+map('v', '<leader>hs', function() gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, opts)
+map('n', '<leader>hu', function() gitsigns.undo_stage_hunk() end, opts)
+map('n', '<leader>hr', function() gitsigns.reset_hunk() end, opts)
+map('v', '<leader>hr', function() gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, opts)
+map('n', '<leader>hR', function() gitsigns.reset_buffer() end, opts)
+map('n', '<leader>hp', function() gitsigns.preview_hunk() end, opts)
+map('n', '<leader>hb', function() gitsigns.blame_line(true) end, opts)
+map('n', '<leader>hS', function() gitsigns.stage_buffer() end, opts)
+map('n', '<leader>hU', function() gitsigns.reset_buffer_index() end, opts)
 
 -- Text objects
-map('o', 'ih', ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>', opts)
-map('x', 'ih', ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>', opts)
+map('o', 'ih', function() gitsigns_actions.select_hunk() end, opts)
+map('x', 'ih', function() gitsigns_actions.select_hunk() end, opts)
 
 
 -- telescope
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-map('n', '<leader>fS', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>', opts)
-map('n', '<leader>fs', '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>', opts)
-map('n', '<leader>dg', '<cmd>lua require("telescope.builtin").diagnostics(require("telescope.themes").get_dropdown({}))<CR>', opts)
-map('n', '<leader>D', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', opts)
-map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({}))<CR>', opts)
-map('n', '<leader>rg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
-map('n', '<leader>rG', '<cmd>lua require("telescope.builtin").grep_string()<CR>', opts)
-map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers( require("telescope.themes").get_dropdown({}) )<CR>', opts)
+local telescope = require("telescope.builtin")
+local ts_theme = require("telescope.themes")
+map('n', '<leader>S', function() telescope.lsp_document_symbols() end, opts)
+map('n', '<leader>s', function() telescope.lsp_dynamic_workspace_symbols() end, opts)
+map('n', '<leader>dg', function() telescope.diagnostics(ts_theme.get_dropdown({})) end, opts)
+map('n', '<leader>D', function() telescope.lsp_type_definitions() end, opts)
+map('n', '<leader>f', function() telescope.find_files(ts_theme.get_dropdown({})) end, opts)
+map('n', '<leader>b', function() telescope.buffers(ts_theme.get_dropdown({})) end, opts)
+map('n', '<leader>rg', function() telescope.live_grep() end, opts)
+map('n', '<leader>rG', function() telescope.grep_string() end, opts)
 
 -- dap
-map('n', '<F5>', '<cmd>lua require("dap").continue()<CR>', opts)
-map('n', '<F6>', '<cmd>lua require("dap").terminate()<CR>', opts)
-map('n', '<F8>', '<cmd>lua require("dap").toggle_breakpoint()<CR>', opts)
-map('n', '<leader>bp', '<cmd>lua require("dap").toggle_breakpoint()<CR>', opts)
-map('n', '<F10>', '<cmd>lua require("dap").step_over()<CR>', opts)
-map('n', '<F11>', '<cmd>lua require("dap").step_into()<CR>', opts)
-map('n', '<F12>', '<cmd>lua require("dap").step_out()<CR>', opts)
+local dap = require('dap')
+local dapui = require('dapui')
+map('n', '<F5>', function() dap.continue() end, opts)
+map('n', '<F6>', function() dap.terminate() end, opts)
+map('n', '<F8>', function() dap.toggle_breakpoint() end, opts)
+map('n', '<F10>', function() dap.step_over() end, opts)
+map('n', '<F11>', function() dap.step_into() end, opts)
+map('n', '<F12>', function() dap.step_out() end, opts)
 
 
 map('n', '<leader>ur', '<cmd>DapToggleRepl<CR>', opts)
-map('n', '<leader>uo', '<cmd>lua require("dapui").toggle()<CR>', opts)
-map('n', '<M-k>', '<cmd>lua require("dapui").eval()<CR>', opts)
-map('v', '<M-k>', '<cmd>lua require("dapui").eval()<CR>', opts)
+---@diagnostic disable-next-line: missing-parameter
+map('n', '<leader>uo', function() dapui.toggle() end, opts)
+map('n', '<M-k>', function() dapui.eval() end, opts)
+map('v', '<M-k>', function() dapui.eval() end, opts)
 
-
+-- tree
+local neotree = require('neo-tree.command')
+map('n', '<C-n>', function() neotree.execute({ toggle = true, position = 'float' }) end, opts)

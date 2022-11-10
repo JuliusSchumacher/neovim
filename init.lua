@@ -1,16 +1,16 @@
 -- install packer if not already present
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  print 'Installing packer...'
-  vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path }
-  vim.cmd 'packadd packer.nvim'
-  print 'Installed packer!'
-  require 'plugins'
-  print 'Installing plugins... Restart nvim after installation is complete'
-  require('packer').sync()
+    print 'Installing packer...'
+    vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path }
+    vim.cmd 'packadd packer.nvim'
+    print 'Installed packer!'
+    require 'plugins'
+    print 'Installing plugins... Restart nvim after installation is complete'
+    require('packer').sync()
 
-  -- don't do anything else
-  return
+    -- don't do anything else
+    return
 end
 
 require('plugins')
@@ -30,14 +30,14 @@ opt.number = true
 opt.relativenumber = true
 
 -- signcolumn
-opt.signcolumn = "yes"
+opt.signcolumn = "yes:2"
 
 -- mouse and clipboard support
 opt.mouse = "a"
 opt.clipboard = "unnamedplus"
 
 -- visible whitespace
-opt.listchars = {eol = ' ', tab = '▸ ', trail = '·'}
+opt.listchars = { eol = ' ', tab = '▸ ', trail = '·' }
 opt.list = true
 
 -- tabs to spaces and length of tab
@@ -47,21 +47,20 @@ opt.tabstop = tablength
 opt.expandtab = true
 
 -- start scrolling
-opt.scrolloff=12
-
--- signcolumn for git changes, errors etc
---opt.signcolumn = "yes"
+opt.scrolloff = 6
 
 -- History
 opt.history = 200
 opt.undofile = true
 opt.undodir = home .. "/.config/nvim/undo"
 opt.backup = true
-opt.backupdir = home ..'/.config/nvim/backup'
+opt.backupdir = home .. '/.config/nvim/backup'
 opt.writebackup = true
 
 -- Remove trailing whitespace on save
 cmd([[ autocmd BufWritePre * %s/\s\+$//e ]])
+cmd([[ autocmd BufEnter * :let &titlestring = "nvim " .. expand("%") ]])
+opt.title = true
 
 -- Remember last position in file
 -- cmd([[ au BufReadPost,BufEnter * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
@@ -83,7 +82,7 @@ opt.cursorline = true
 -- vim.wo.foldmethod = "expr"
 -- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 -- vim.wo.foldtext =
-  -- [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
+-- [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
 -- vim.wo.fillchars = "fold:\\"
 -- vim.wo.foldnestmax = 3
 -- vim.wo.foldminlines = 1
@@ -101,7 +100,7 @@ opt.confirm = true
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     print "Installing packer..."
-    vim.fn.system {"git", "clone", "https://github.com/wbthomason/packer.nvim", install_path}
+    vim.fn.system { "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path }
     vim.cmd "packadd packer.nvim"
     print "Installed packer!"
     require "plugins"
@@ -128,15 +127,13 @@ opt.updatetime = 100
 opt.number = true
 opt.relativenumber = true
 
--- signcolumn
-opt.signcolumn = "yes"
 
 -- mouse and clipboard support
 opt.mouse = "a"
 opt.clipboard = "unnamedplus"
 
 -- visible whitespace
-opt.listchars = {eol = " ", tab = "▸ ", trail = "·"}
+opt.listchars = { eol = " ", tab = "▸ ", trail = "·" }
 opt.list = true
 
 -- tabs to spaces and length of tab
@@ -146,10 +143,8 @@ opt.tabstop = tablength
 opt.expandtab = true
 
 -- start scrolling
-opt.scrolloff = 12
+opt.scrolloff = 8
 
--- signcolumn for git changes, errors etc
---opt.signcolumn = "yes"
 
 -- History
 opt.history = 200
@@ -176,18 +171,6 @@ cmd([[ highlight Comment cterm=italic ]])
 cmd [[ hi Pmenu ctermbg=0 ]]
 
 opt.cursorline = true
-
--- fold settings
--- vim.wo.foldmethod = "expr"
--- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
--- vim.wo.foldtext =
--- [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
--- vim.wo.fillchars = "fold:\\"
--- vim.wo.foldnestmax = 3
--- vim.wo.foldminlines = 1
-
--- unfold
-cmd [[  autocmd BufWinEnter * silent! :%foldopen! ]]
 
 -- Don't insert an extra space after a period when joining lines with J.
 opt.joinspaces = false

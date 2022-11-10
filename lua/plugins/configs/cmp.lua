@@ -7,7 +7,7 @@ tabnine:setup({
   max_lines = 1000;
 })
 
-cmp.setup{
+cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
@@ -18,7 +18,7 @@ cmp.setup{
   },
 
   formatting = {
-    format = lspkind.cmp_format({with_text = true, maxwidth = 50})
+    format = lspkind.cmp_format({ with_text = true, maxwidth = 50 })
   },
   mapping = {
     ['<Tab>'] = function(fallback)

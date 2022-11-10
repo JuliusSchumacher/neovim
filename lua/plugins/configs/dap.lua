@@ -2,7 +2,7 @@ local dap = require('dap')
 
 -- plugins
 
-vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl='', priority=1})
 
 require("nvim-dap-virtual-text").setup()
 
