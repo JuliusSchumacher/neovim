@@ -1,17 +1,17 @@
 local lsp = require 'lspconfig'
-local util = require 'lspconfig/util'
-local cmd = vim.api.nvim_command
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- lua
-local sumneko_binary_path = vim.fn.exepath('lua-language-server')
-local sumneko_root_path = vim.fn.fnamemodify(sumneko_binary_path, ':h:h:h')
+local lua_ls_binary_path = vim.fn.exepath('lua-language-server')
+local lua_ls_root_path = vim.fn.fnamemodify(lua_ls_binary_path, ':h:h:h')
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-lsp.sumneko_lua.setup {
-  cmd = { sumneko_binary_path, "-E", sumneko_root_path .. "/main.lua" };
+
+lsp.lua_ls.setup {
+  cmd = { lua_ls_binary_path, "-E", lua_ls_root_path .. "/main.lua" },
   settings = {
     Lua = {
       runtime = {
@@ -34,7 +34,7 @@ lsp.sumneko_lua.setup {
       },
     },
   },
-  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = capabilities
 }
 
 -- csharp
@@ -42,12 +42,12 @@ local pid = vim.fn.getpid()
 local omnisharp_bin = "/usr/bin/omnisharp"
 lsp.omnisharp.setup {
   cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
-  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = capabilities
 }
 
 -- yaml
 lsp.yamlls.setup {
-  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = capabilities
 }
 
 -- terraform
@@ -55,12 +55,12 @@ require 'lspconfig'.terraformls.setup {}
 
 -- css
 require 'lspconfig'.cssls.setup {
-  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
   cmd = { "vscode-css-languageserver", "--stdio" }
 }
 
 require 'lspconfig'.html.setup {
-  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
   cmd = { "vscode-html-languageserver", "--stdio" }
 }
 
@@ -73,7 +73,10 @@ require 'lspconfig'.powershell_es.setup {
 
 -- sql
 require 'lspconfig'.sqls.setup {
-  cmd = { "/usr/sbin/sqls", "-config", "~/.config/sqls/config.yml" }
+  cmd = { "/usr/sbin/sqls", "-config", "~/.config/sqls/config.yml" },
+  on_attach = function(client, bufnr)
+    require 'sqls'.on_attach(client, bufnr)
+  end
 }
 
 -- latex
@@ -94,15 +97,15 @@ lsp.pylsp.setup {}
 -- typescript
 lsp.tsserver.setup {}
 vim.api.nvim_create_autocmd(
-  "BufWritePost",
+  "BufWritePre",
   {
     pattern = "*",
     callback = function()
       vim.lsp.buf.format({
         async = true,
         filter = function(client)
-          return (client.name ~= 'html') and (client.name ~= 'tsserver')
-        end
+          return (client.name ~= 'html') and (client.name ~= 'tsserver') and (client.name ~= 'intelephense')
+        end,
       })
     end
   }
@@ -110,14 +113,20 @@ vim.api.nvim_create_autocmd(
 
 
 -- angular
-lsp.angularls.setup {}
+lsp.angularls.setup {
+  capabilities = capabilities
+}
 
 -- ruby
 lsp.solargraph.setup {}
 
 -- php
-require 'lspconfig'.phpactor.setup {}
-require 'lspconfig'.phan.setup {}
+lsp.intelephense.setup {
+  capabilities = capabilities,
+}
 
 -- graphql
-lsp.graphql.setup {}
+lsp.graphql.setup {
+  capabilities = capabilities,
+  cmd = { "/usr/bin/graphql-lsp", "server", "-m", "stream", "-s=http://localhost/hyperion/Graphql" }
+}

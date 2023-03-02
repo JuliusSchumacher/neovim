@@ -1,6 +1,5 @@
 ---@diagnostic disable: undefined-global
 require('packer').startup(function()
-
   use 'wbthomason/packer.nvim'
 
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
@@ -77,7 +76,7 @@ require('packer').startup(function()
 
 
   use {
-    'famiu/feline.nvim',
+    'freddiehaddad/feline.nvim',
     config = function()
       require('plugins.configs.feline')
     end
@@ -131,7 +130,6 @@ require('packer').startup(function()
       require('plugins.configs.bufferline')
     end
   } ]]
-
   use 'famiu/nvim-reload'
 
   use {
@@ -299,7 +297,8 @@ require('packer').startup(function()
     end
   }
 
-  use({ "ziontee113/color-picker.nvim",
+  use({
+    "ziontee113/color-picker.nvim",
     config = function()
       require("color-picker")
     end,
@@ -327,10 +326,8 @@ require('packer').startup(function()
     "glepnir/lspsaga.nvim",
     branch = "main",
     config = function()
-      local saga = require("lspsaga")
-
-      saga.init_lsp_saga({
-        code_action_lightbulb = {
+      require("lspsaga").setup({
+        lightbulb = {
           sign_priority = 10,
           virtual_text = false,
         },
@@ -354,7 +351,6 @@ require('packer').startup(function()
           winbar = false,
           statusline = false
         },
-
       })
     end
   }
@@ -373,7 +369,6 @@ require('packer').startup(function()
       "jose-elias-alvarez/null-ls.nvim"
     },
     config = function()
-
       local prettier = require("prettier")
 
       prettier.setup({
@@ -429,4 +424,10 @@ require('packer').startup(function()
     requires = { 'LukasPietzschmann/sessions.nvim' }
   }
 
+  use { 'github/copilot.vim' }
+
+  use { 'takac/vim-hardtime', config = function()
+  end }
+
+  use { 'nanotee/sqls.nvim' }
 end)
