@@ -79,6 +79,9 @@ require 'lspconfig'.sqls.setup {
   end
 }
 
+--[[ lsp.sqlls.setup {
+  root_dir = function() return "~/desk" end,
+} ]]
 -- latex
 require 'lspconfig'.texlab.setup {
   settings = {
@@ -124,9 +127,28 @@ lsp.solargraph.setup {}
 lsp.intelephense.setup {
   capabilities = capabilities,
 }
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.php",
+  callback = function()
+    local file = vim.fn.expand('%')
+    vim.notify('Formatting ' .. file .. ' with ecs...')
+    io.popen('~/code/struqtur-legacy/bin/php-cs-fixer fix ' .. file .. '&>/dev/null')
+    vim.api.buf.reload()
+  end
+
+})
 
 -- graphql
 lsp.graphql.setup {
   capabilities = capabilities,
   cmd = { "/usr/bin/graphql-lsp", "server", "-m", "stream", "-s=http://localhost/hyperion/Graphql" }
 }
+
+-- bash
+lsp.bashls.setup {}
+
+-- java
+lsp.java_language_server.setup { cmd = { "java-language-server" } }
+
+-- json
+lsp.jsonls.setup {}

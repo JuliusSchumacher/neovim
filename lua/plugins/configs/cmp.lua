@@ -1,11 +1,6 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
-local tabnine = require('cmp_tabnine.config')
-
-tabnine:setup({
-  max_lines = 1000;
-})
 
 cmp.setup {
   sources = {
@@ -14,7 +9,7 @@ cmp.setup {
     { name = 'buffer' },
     { name = 'path' },
     { name = 'calc' },
-    { name = 'cmp_tabnine' },
+    { name = 'copilot' }
   },
 
   formatting = {

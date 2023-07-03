@@ -80,12 +80,12 @@ map('n', '<leader>f', function() telescope.find_files(ts_theme.get_dropdown({}))
 map('n', '<leader>b', function() telescope.buffers(ts_theme.get_dropdown({})) end, opts)
 map('n', '<leader>rg', function() telescope.live_grep() end, opts)
 map('n', '<leader>rG', function() telescope.grep_string() end, opts)
+map('n', '<leader><leader>', function() telescope.resume() end, opts)
 
 -- dap
 local dap = require('dap')
 local dapui = require('dapui')
 map('n', '<F5>', function() dap.continue() end, opts)
-map('n', '<F6>', function() dap.terminate() end, opts)
 map('n', '<F8>', function() dap.toggle_breakpoint() end, opts)
 map('n', '<F10>', function() dap.step_over() end, opts)
 map('n', '<F11>', function() dap.step_into() end, opts)

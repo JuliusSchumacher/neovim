@@ -111,10 +111,10 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
-  use {
+  --[[ use {
     'tzachar/cmp-tabnine',
     run = './install.sh',
-  }
+  } ]]
 
   use {
     'https://github.com/hrsh7th/nvim-cmp',
@@ -360,7 +360,7 @@ require('packer').startup(function()
     config = function()
       require('plugins.configs.null-ls')
     end,
-    requires = { "nvim-lua/plenary" }
+    requires = { "nvim-lua/plenary.nvim" }
   }
 
   use {
@@ -424,10 +424,37 @@ require('packer').startup(function()
     requires = { 'LukasPietzschmann/sessions.nvim' }
   }
 
-  use { 'github/copilot.vim' }
-
   use { 'takac/vim-hardtime', config = function()
   end }
 
   use { 'nanotee/sqls.nvim' }
+
+  use {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    },
+    config = function()
+      require "octo".setup()
+    end
+  }
+
+  use { "zbirenbaum/copilot.lua",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end
+  }
+
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  }
 end)

@@ -2,22 +2,22 @@ local dap = require('dap')
 
 -- plugins
 
-vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl='', priority=1})
+vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '', priority = 1 })
 
 require("nvim-dap-virtual-text").setup()
 
-local dapui = require'dapui'
+local dapui = require 'dapui'
 
 dapui.setup({
   icons = { expanded = "▾", collapsed = "▸" },
   mappings = {
-  -- Use a table to apply multiple mappings
-  expand = { "<CR>", "<2-LeftMouse>" },
-  open = "o",
-  remove = "d",
-  edit = "e",
-  repl = "r",
-  toggle = "t",
+    -- Use a table to apply multiple mappings
+    expand = { "<CR>", "<2-LeftMouse>" },
+    open = "o",
+    remove = "d",
+    edit = "e",
+    repl = "r",
+    toggle = "t",
   },
   -- Expand lines larger than the window
   -- Requires >= 0.7
@@ -30,20 +30,20 @@ dapui.setup({
   -- Elements are the elements shown in the layout (in order).
   -- Layouts are opened in order so that earlier layouts take priority in window sizing.
   layouts = {
-  {
-    elements = {
-    -- Elements can be strings or table with id and size keys.
-    "repl",
-    -- "console",
-    "scopes",
-    -- "breakpoints",
-    -- "stacks",
-    "watches",
+    {
+      elements = {
+        -- Elements can be strings or table with id and size keys.
+        -- "repl",
+        -- "console",
+        "scopes",
+        -- "breakpoints",
+        "stacks",
+        "watches",
+      },
+      size = 40, -- 40 columns
+      position = "left",
     },
-    size = 40, -- 40 columns
-    position = "left",
-  },
-  --[[ {
+    --[[ {
     elements = {
     "repl",
     "console",
@@ -53,16 +53,16 @@ dapui.setup({
   }, ]]
   },
   floating = {
-  max_height = nil, -- These can be integers or a float between 0 and 1.
-  max_width = nil, -- Floats will be treated as percentage of your screen.
-  border = "single", -- Border style. Can be "single", "double" or "rounded"
-  mappings = {
-    close = { "q", "<Esc>" },
-  },
+    max_height = nil,  -- These can be integers or a float between 0 and 1.
+    max_width = nil,   -- Floats will be treated as percentage of your screen.
+    border = "single", -- Border style. Can be "single", "double" or "rounded"
+    mappings = {
+      close = { "q", "<Esc>" },
+    },
   },
   windows = { indent = 1 },
   render = {
-  max_type_length = nil, -- Can be integer or nil.
+    max_type_length = nil, -- Can be integer or nil.
   }
 })
 
@@ -70,7 +70,7 @@ dapui.setup({
 dap.adapters.netcoredbg = {
   type = 'executable',
   command = '/usr/sbin/netcoredbg',
-  args = {'--interpreter=vscode', '--hot-reload'}
+  args = { '--interpreter=vscode', '--hot-reload' }
 }
 
 dap.configurations.cs = {
@@ -98,23 +98,23 @@ dap.adapters.codelldb = require('rust-tools.dap').get_codelldb_adapter(codelldb_
 
 dap.configurations.rust = {
   {
-  name = "Launch file",
-  type = "codelldb",
-  request = "launch",
-  program = function()
-    -- vim.notify("Building package...")
-    -- local _ = io.popen("cargo build")
-    local executable = io.popen("find target/debug/ -maxdepth 1 -executable -type f")
-    return vim.fn.getcwd() .. "/" .. executable:lines()()
-  end,
-  cwd = '${workspaceFolder}',
-  stopOnEntry = false,
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      -- vim.notify("Building package...")
+      -- local _ = io.popen("cargo build")
+      local executable = io.popen("find target/debug/ -maxdepth 1 -executable -type f")
+      return vim.fn.getcwd() .. "/" .. executable:lines()()
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
   },
 }
 
 -- typescript
 require("dap-vscode-js").setup({
-  node_path = "ts-node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
+  node_path = "ts-node",                                                                       -- Path of node executable. Defaults to $NODE_PATH, and then "node"
   -- debugger_path = "(runtimedir)/site/pack/packer/opt/vscode-js-debug", -- Path to vscode-js-debug installation.
   adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
 })
@@ -122,8 +122,8 @@ require("dap-vscode-js").setup({
 dap.adapters.node2 = {
   type = 'executable',
   command = 'ts-node',
-  args = {os.getenv('HOME') .. '/.local/share/nvim/site/pack/packer/opt/vscode-node-debug2/out/src/nodeDebug.js'},
-  }
+  args = { os.getenv('HOME') .. '/.local/share/nvim/site/pack/packer/opt/vscode-node-debug2/out/src/nodeDebug.js' },
+}
 
 dap.adapters.chrome = {
   type = "executable",
@@ -164,7 +164,7 @@ for _, language in ipairs({ "typescript", "javascript" }) do
       type = "pwa-node",
       request = "attach",
       name = "Attach",
-      processId = require'dap.utils'.pick_process,
+      processId = require 'dap.utils'.pick_process,
       cwd = "${workspaceFolder}",
     },
   }
@@ -174,3 +174,41 @@ end
 -- ruby
 require('dap-ruby').setup()
 
+-- php
+
+dap.adapters.php = {
+  type = 'executable',
+  command = 'node',
+  args = { '/usr/lib/node_modules/php-debug/out/phpDebug.js' }
+}
+
+dap.configurations.php = {
+  {
+    name = 'Listen for Xdebug',
+    type = 'php',
+    request = 'launch',
+    port = 9000,
+    pathMappings = { ['/var/www/html'] = "${workspaceFolder}" },
+  },
+  {
+    name = 'Launch currently open script',
+    type = 'php',
+    request = 'launch',
+    program = '${file}',
+    cwd = '${fileDirname}',
+    port = 0,
+    runtimeArgs = { '-dxdebug.start_with_request=yes' },
+    env = {
+      XDEBUG_MODE = "debug, develop",
+      XDEBUG_CONFIG = "client_port=${port}"
+    }
+  },
+  {
+    name = 'Listen for PHPUnit Xdebug',
+    type = 'php',
+    request = 'launch',
+    port = 9001,
+    pathMappings = { ['/var/www/html'] = "${workspaceFolder}" },
+    log = 'true'
+  },
+}
