@@ -100,4 +100,4 @@ map('v', '<M-k>', function() dapui.eval() end, opts)
 
 -- tree
 local neotree = require('neo-tree.command')
-map('n', '<C-n>', function() neotree.execute({ toggle = true, position = 'float' }) end, opts)
+map('n', '<C-n>', function() neotree.execute({ toggle = true, position = 'left' }) end, opts)
