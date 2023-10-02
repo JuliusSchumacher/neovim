@@ -8,6 +8,7 @@ require("formatter").setup({
         html = {require("formatter.filetypes.html").prettier},
         css = {require("formatter.filetypes.css").prettier},
         graphql = {require("formatter.filetypes.graphql").prettier},
+        typescriptreact = {require("formatter.filetypes.typescript").prettier},
         php = {
             function()
                 local file = plenary.path:new(vim.api.nvim_buf_get_name(0))

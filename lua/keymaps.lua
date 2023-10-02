@@ -2,7 +2,7 @@ local g = vim.g
 local cmd = vim.api.nvim_command
 local map = vim.keymap.set
 
-local opts = { noremap = true, silent = true }
+local opts = {noremap = true, silent = true}
 
 g.mapleader = " "
 
@@ -19,7 +19,6 @@ cmd([[
   cnoreabbrev Q q
   cnoreabbrev Qall qall
 ]])
-
 
 -- move around
 map('n', '<C-h>', '<C-w>h', opts)
@@ -41,10 +40,9 @@ map('n', 'gd', function() vim.lsp.buf.definition() end, opts)
 map('n', 'gD', function() vim.lsp.buf.declaration() end, opts)
 map('n', 'gr', function() vim.lsp.buf.references() end, opts)
 map('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
-map('n', '<C-k>', function() vim.lsp.buf.signature_help() end, opts)
 map('n', '<leader>D', function() vim.lsp.buf.type_definition() end, opts)
 map('n', '<leader>rn', function() vim.lsp.buf.rename() end, opts)
-map('n', '<leader>e', function() require "lsp_lines".toggle() end, opts)
+map('n', '<leader>e', function() require"lsp_lines".toggle() end, opts)
 map('n', '<leader>ca', '<cmd>CodeActionMenu<CR>', opts)
 map('v', '<leader>ca', '<cmd>CodeActionMenu<CR>', opts)
 vim.g.code_action_menu_show_details = true
@@ -54,10 +52,14 @@ vim.g.code_action_menu_show_diff = true
 local gitsigns = require('gitsigns')
 local gitsigns_actions = require('gitsigns.actions')
 map('n', '<leader>hs', function() gitsigns.stage_hunk() end, opts)
-map('v', '<leader>hs', function() gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, opts)
+map('v', '<leader>hs',
+    function() gitsigns.stage_hunk({vim.fn.line("."), vim.fn.line("v")}) end,
+    opts)
 map('n', '<leader>hu', function() gitsigns.undo_stage_hunk() end, opts)
 map('n', '<leader>hr', function() gitsigns.reset_hunk() end, opts)
-map('v', '<leader>hr', function() gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, opts)
+map('v', '<leader>hr',
+    function() gitsigns.reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end,
+    opts)
 map('n', '<leader>hR', function() gitsigns.reset_buffer() end, opts)
 map('n', '<leader>hp', function() gitsigns.preview_hunk() end, opts)
 map('n', '<leader>hb', function() gitsigns.blame_line(true) end, opts)
@@ -68,16 +70,19 @@ map('n', '<leader>hU', function() gitsigns.reset_buffer_index() end, opts)
 map('o', 'ih', function() gitsigns_actions.select_hunk() end, opts)
 map('x', 'ih', function() gitsigns_actions.select_hunk() end, opts)
 
-
 -- telescope
 local telescope = require("telescope.builtin")
 local ts_theme = require("telescope.themes")
 map('n', '<leader>S', function() telescope.lsp_document_symbols() end, opts)
-map('n', '<leader>s', function() telescope.lsp_dynamic_workspace_symbols() end, opts)
-map('n', '<leader>dg', function() telescope.diagnostics(ts_theme.get_dropdown({})) end, opts)
+map('n', '<leader>s', function() telescope.lsp_dynamic_workspace_symbols() end,
+    opts)
+map('n', '<leader>dg',
+    function() telescope.diagnostics(ts_theme.get_dropdown({})) end, opts)
 map('n', '<leader>D', function() telescope.lsp_type_definitions() end, opts)
-map('n', '<leader>f', function() telescope.find_files(ts_theme.get_dropdown({})) end, opts)
-map('n', '<leader>b', function() telescope.buffers(ts_theme.get_dropdown({})) end, opts)
+map('n', '<leader>f',
+    function() telescope.find_files(ts_theme.get_dropdown({})) end, opts)
+map('n', '<leader>b',
+    function() telescope.buffers(ts_theme.get_dropdown({})) end, opts)
 map('n', '<leader>rg', function() telescope.live_grep() end, opts)
 map('n', '<leader>rG', function() telescope.grep_string() end, opts)
 map('n', '<leader><leader>', function() telescope.resume() end, opts)
@@ -91,7 +96,6 @@ map('n', '<F10>', function() dap.step_over() end, opts)
 map('n', '<F11>', function() dap.step_into() end, opts)
 map('n', '<F12>', function() dap.step_out() end, opts)
 
-
 map('n', '<leader>ur', '<cmd>DapToggleRepl<CR>', opts)
 ---@diagnostic disable-next-line: missing-parameter
 map('n', '<leader>uo', function() dapui.toggle() end, opts)
@@ -100,4 +104,17 @@ map('v', '<M-k>', function() dapui.eval() end, opts)
 
 -- tree
 local neotree = require('neo-tree.command')
-map('n', '<C-n>', function() neotree.execute({ toggle = true, position = 'left' }) end, opts)
+map('n', '<C-n>',
+    function() neotree.execute({toggle = true, position = 'left'}) end, opts)
+
+-- dbee
+local dbee = require('dbee')
+map('n', '<leader>db', function() dbee.toggle() end, opts)
+map('n', '<leader>dc', function() dbee.close() end, opts)
+map('n', '<leader>ds', function()
+    vim.ui.input('Filename:', function(filename)
+        local file = vim.fn.expand('~/') .. filename
+        print(file)
+        dbee.store('csv', 'file', {extra_arg = file})
+    end)
+end, opts)

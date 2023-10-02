@@ -138,10 +138,6 @@ require("packer").startup(function()
 
     use "ggandor/lightspeed.nvim"
 
-    use "tpope/vim-dadbod"
-
-    use "kristijanhusak/vim-dadbod-ui"
-
     use "cyberkov/openhab-vim"
 
     use {
@@ -366,4 +362,28 @@ require("packer").startup(function()
         requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
         config = function() require("typescript-tools").setup({}) end
     }
+
+    use {"elkowar/yuck.vim"}
+    use {
+        "kndndrj/nvim-dbee",
+        requires = {"MunifTanjim/nui.nvim"},
+        run = function()
+            -- Install tries to automatically detect the install method.
+            -- if it fails, try calling it with one of these parameters:
+            --    "curl", "wget", "bitsadmin", "go"
+            require("dbee").install()
+        end,
+        config = function()
+            require("dbee").setup {
+                lazy = true,
+                sources = {
+                    require("dbee.sources").FileSource:new(vim.fn.stdpath(
+                                                               "cache") ..
+                                                               "/dbee/persistence.json")
+                }
+
+            }
+        end
+    }
+
 end)
