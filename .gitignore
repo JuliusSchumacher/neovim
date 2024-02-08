@@ -1,3 +1,5 @@
 backup/*
 undo/*
-plugin/
+plugin/*
+ftplugin/*
+lua/.luarc.json

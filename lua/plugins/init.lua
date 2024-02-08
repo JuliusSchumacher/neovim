@@ -376,6 +376,7 @@ require("packer").startup(function()
     }
 
     use {"elkowar/yuck.vim"}
+
     use {
         "kndndrj/nvim-dbee",
         requires = {"MunifTanjim/nui.nvim"},
@@ -397,6 +398,7 @@ require("packer").startup(function()
             }
         end
     }
+
     use {
         "akinsho/toggleterm.nvim",
         config = function()
@@ -408,5 +410,7 @@ require("packer").startup(function()
             }
         end
     }
+
+    use {'ThePrimeagen/harpoon', requires = {'nvim-lua/plenary.nvim'}}
 
 end)
