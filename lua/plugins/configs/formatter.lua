@@ -8,6 +8,7 @@ require("formatter").setup({
         html = {require("formatter.filetypes.html").prettier},
         css = {require("formatter.filetypes.css").prettier},
         graphql = {require("formatter.filetypes.graphql").prettier},
+        yaml = {require("formatter.filetypes.yaml").prettier},
         typescriptreact = {require("formatter.filetypes.typescript").prettier},
         php = {
             function()

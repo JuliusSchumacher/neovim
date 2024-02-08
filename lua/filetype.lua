@@ -128,7 +128,8 @@ lsp.graphql.setup({
     cmd = {
         "/usr/bin/graphql-lsp", "server", "-m", "stream",
         "-s=http://localhost/hyperion/Graphql"
-    }
+    },
+    root_dir = lsp.util.root_pattern("package.json", ".git")
 })
 
 -- bash
@@ -170,3 +171,9 @@ vim.api.nvim_create_autocmd("BufRead", {
 
 -- json
 lsp.jsonls.setup({})
+
+-- swift
+lsp.sourcekit.setup({})
+
+-- R
+lsp.r_language_server.setup {}

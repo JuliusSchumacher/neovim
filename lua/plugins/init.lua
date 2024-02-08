@@ -37,17 +37,20 @@ require("packer").startup(function()
     use {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
-            require("indent_blankline").setup {
-                indentLine_enabled = 1,
-                char = "▏",
-                filetype_exclude = {
-                    "help", "terminal", "dashboard", "packer", "lspinfo",
-                    "TelescopePrompt", "TelescopeResults"
+            require("ibl").setup {
+                indent = {
+                    smart_indent_cap = true,
+                    highlight = "IndentBlankline",
+                    char = "│",
                 },
-                buftype_exclude = {"terminal"},
-                show_trailing_blankline_indent = false,
-                show_first_indent_level = false,
-                show_current_context = true
+                exclude = {
+                    filetypes = {
+                        "help", "terminal", "dashboard", "packer", "lspinfo",
+                        "TelescopePrompt", "TelescopeResults"
+                    },
+                    buftypes = {"terminal"}
+                },
+                scope = {highlight = "IndentBlanklineScope"}
             }
         end
     }
@@ -120,7 +123,16 @@ require("packer").startup(function()
         end
     }
 
-    use "rmagatti/auto-session"
+    use {
+        "rmagatti/auto-session",
+        config = function()
+            require("auto-session").setup {
+                auto_save_enabled = true,
+                auto_restore_enabled = true,
+                auto_session_enable_last_session = true
+            }
+        end
+    }
 
     use_rocks "fzy-lua-native"
     use {
@@ -382,6 +394,16 @@ require("packer").startup(function()
                                                                "/dbee/persistence.json")
                 }
 
+            }
+        end
+    }
+    use {
+        "akinsho/toggleterm.nvim",
+        config = function()
+            require("toggleterm").setup {
+                open_mapping = [[<LEADER>t]],
+                direction = 'float',
+                float_opts = {border = 'rounded'}
             }
         end
     }

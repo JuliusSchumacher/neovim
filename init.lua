@@ -33,6 +33,9 @@ opt.updatetime = 100
 opt.number = true
 opt.relativenumber = true
 
+-- signcolumn
+opt.signcolumn = "yes:2"
+
 -- mouse and clipboard support
 opt.mouse = "a"
 opt.clipboard = "unnamedplus"
