@@ -41,7 +41,7 @@ require("packer").startup(function()
                 indent = {
                     smart_indent_cap = true,
                     highlight = "IndentBlankline",
-                    char = "│",
+                    char = "│"
                 },
                 exclude = {
                     filetypes = {
@@ -403,7 +403,8 @@ require("packer").startup(function()
             require("toggleterm").setup {
                 open_mapping = [[<LEADER>t]],
                 direction = 'float',
-                float_opts = {border = 'rounded'}
+                float_opts = {border = 'rounded'},
+                insert_mappings = false
             }
         end
     }
