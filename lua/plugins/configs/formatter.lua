@@ -3,7 +3,7 @@ local plenary = require("plenary")
 
 require("formatter").setup({
     filetype = {
-        lua = {require("formatter.filetypes.lua").luaformat},
+        -- lua = {require("formatter.filetypes.lua").luaformat},
         typescript = {require("formatter.filetypes.typescript").prettier},
         html = {require("formatter.filetypes.html").prettier},
         css = {require("formatter.filetypes.css").prettier},

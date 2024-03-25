@@ -61,8 +61,6 @@ map('v', '<leader>hr',
     function() gitsigns.reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end,
     opts)
 map('n', '<leader>hR', function() gitsigns.reset_buffer() end, opts)
-map('n', '<leader>hp', function() gitsigns.preview_hunk() end, opts)
-map('n', '<leader>hb', function() gitsigns.blame_line(true) end, opts)
 map('n', '<leader>hS', function() gitsigns.stage_buffer() end, opts)
 map('n', '<leader>hU', function() gitsigns.reset_buffer_index() end, opts)
 
@@ -117,4 +115,22 @@ map('n', '<leader>ds', function()
         print(file)
         dbee.store('csv', 'file', {extra_arg = file})
     end)
+end, opts)
+
+-- harpoon
+local harpoon_ui = require('harpoon.ui')
+local harpoon_mark = require('harpoon.mark')
+map('n', '<leader>hh', '<cmd>Telescope harpoon marks<CR>', opts)
+map('n', '<leader>ma', function() harpoon_mark.add_file() end, opts)
+map('n', '<leader>n', function() harpoon_ui.nav_next() end, opts)
+map('n', '<leader>p', function() harpoon_ui.nav_prev() end, opts)
+
+
+map("n", "[d", require("delimited").goto_prev, opts)
+map("n", "]d", require("delimited").goto_next, opts)
+map("n", "[D", function()
+    require("delimited").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, opts)
+map("n", "]D", function()
+    require("delimited").goto_next({ severity = vim.diagnostic.severity.ERROR })
 end, opts)

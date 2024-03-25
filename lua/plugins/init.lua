@@ -120,6 +120,7 @@ require("packer").startup(function()
             require("telescope").load_extension("lsp_handlers")
             require("telescope").load_extension("fzy_native")
             require("telescope").load_extension("dap")
+            require("telescope").load_extension("harpoon")
         end
     }
 
@@ -127,10 +128,11 @@ require("packer").startup(function()
         "rmagatti/auto-session",
         config = function()
             require("auto-session").setup {
-                auto_save_enabled = true,
-                auto_restore_enabled = true,
-                auto_session_enable_last_session = true
+                auto_session_enabled = true,
+                auto_session_use_git_branch = true
             }
+            vim.o.sessionoptions =
+                "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
         end
     }
 
@@ -412,5 +414,7 @@ require("packer").startup(function()
     }
 
     use {'ThePrimeagen/harpoon', requires = {'nvim-lua/plenary.nvim'}}
+
+    use {'mizlan/delimited.nvim'}
 
 end)

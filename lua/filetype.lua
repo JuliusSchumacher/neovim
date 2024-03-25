@@ -1,10 +1,10 @@
 local lsp = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp
-                                                                      .protocol
-                                                                      .make_client_capabilities())
+    .protocol
+    .make_client_capabilities())
 
 -- format on save
-vim.api.nvim_create_autocmd({"BufWritePost"}, {
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     pattern = "*",
     callback = function() vim.cmd("FormatWrite") end
 })
@@ -18,7 +18,7 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 lsp.lua_ls.setup({
-    cmd = {lua_ls_binary_path, "-E", lua_ls_root_path .. "/main.lua"},
+    cmd = { lua_ls_binary_path, "-E", lua_ls_root_path .. "/main.lua" },
     settings = {
         Lua = {
             runtime = {
@@ -29,14 +29,14 @@ lsp.lua_ls.setup({
             },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
-                globals = {"vim"}
+                globals = { "vim" }
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true)
             },
             -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {enable = false}
+            telemetry = { enable = false }
         }
     },
     capabilities = capabilities
@@ -46,12 +46,12 @@ lsp.lua_ls.setup({
 local pid = vim.fn.getpid()
 local omnisharp_bin = "/usr/bin/omnisharp"
 lsp.omnisharp.setup({
-    cmd = {omnisharp_bin, "--languageserver", "--hostPID", tostring(pid)},
+    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
     capabilities = capabilities
 })
 
 -- yaml
-lsp.yamlls.setup({capabilities = capabilities})
+lsp.yamlls.setup({ capabilities = capabilities })
 
 -- terraform
 require("lspconfig").terraformls.setup({})
@@ -59,12 +59,12 @@ require("lspconfig").terraformls.setup({})
 -- css
 require("lspconfig").cssls.setup({
     capabilities = capabilities,
-    cmd = {"vscode-css-languageserver", "--stdio"}
+    cmd = { "vscode-css-languageserver", "--stdio" }
 })
 
 require("lspconfig").html.setup({
     capabilities = capabilities,
-    cmd = {"vscode-html-languageserver", "--stdio"}
+    cmd = { "vscode-html-languageserver", "--stdio" }
 })
 
 -- powershell
@@ -75,7 +75,7 @@ require("lspconfig").powershell_es.setup({
 
 -- sql
 require("lspconfig").sqls.setup({
-    cmd = {"/usr/sbin/sqls", "-config", "~/.config/sqls/config.yml"},
+    cmd = { "/usr/sbin/sqls", "-config", "~/.config/sqls/config.yml" },
     on_attach = function(client, bufnr)
         require("sqls").on_attach(client, bufnr)
     end
@@ -114,13 +114,26 @@ lsp.eslint.setup({
 })
 
 -- angular
-lsp.angularls.setup({capabilities = capabilities})
+lsp.angularls.setup({ capabilities = capabilities })
 
 -- ruby
 lsp.solargraph.setup({})
 
 -- php
-lsp.intelephense.setup({capabilities = capabilities})
+lsp.intelephense.setup({
+    init_options = {
+        licenceKey = "/home/julius/.config/intelephense/licence.txt"
+    },
+    capabilities = capabilities
+})
+--[[ lsp.psalm.setup({
+    cmd = {
+        'psalm', "--language-server", "-r=/var/www/html",
+        "--map-folder=/var/www/html:" .. vim.fn.getcwd(),
+        "--config=/var/www/html/psalm.xml"
+    },
+    capabilities = capabilities
+}) ]]
 
 -- graphql
 lsp.graphql.setup({
@@ -140,13 +153,13 @@ vim.api.nvim_create_autocmd("BufRead", {
     pattern = "*.java",
     callback = function()
         local config = {
-            cmd = {"/usr/bin/jdtls"},
-            root_dir = vim.fs.dirname(vim.fs.find({"gradlew", ".git", "mvnw"},
-                                                  {upward = true})[1]),
+            cmd = { "/usr/bin/jdtls" },
+            root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" },
+                { upward = true })[1]),
             init_options = {
                 settings = {
                     java = {
-                        implementationsCodeLens = {enabled = true},
+                        implementationsCodeLens = { enabled = true },
                         imports = { -- <- this
                             gradle = {
                                 enabled = true,
