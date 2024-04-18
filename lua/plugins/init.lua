@@ -102,7 +102,7 @@ require("packer").startup(function()
 
     use {
         "rcarriga/nvim-dap-ui",
-        requires = {"mfussenegger/nvim-dap"},
+        requires = {"mfussenegger/nvim-dap" , "nvim-neotest/nvim-nio"},
         config = function() require("plugins.configs.dap") end
     }
 
@@ -280,7 +280,23 @@ require("packer").startup(function()
             vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
             require("neo-tree").setup({
                 close_if_last_window = true,
-                source_selector = {winbar = false, statusline = false}
+                source_selector = {winbar = false, statusline = false},
+                name = {
+                    use_git_status_colors = false
+                },
+                default_component_configs = {
+                    git_status = {
+                        symbols = {
+                            added = "",
+                            modified = "",
+                            untracked = "",
+                            ignored   = "󱋭",
+                            unstaged  = "󰄱",
+                            staged    = "󰄵",
+                        }
+                    }
+
+                }
             })
         end
     }

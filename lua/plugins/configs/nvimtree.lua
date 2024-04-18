@@ -1,4 +1,5 @@
 local g = vim.g
+bajs
 local git_status = 1
 
 g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names

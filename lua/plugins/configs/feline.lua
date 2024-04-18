@@ -136,7 +136,7 @@ local comps = {
         hint = {
             -- provider = 'diagnostic_hints',
             provider = function()
-                return '' .. lsp_get_diag("Hint")
+                return '󰌵' .. lsp_get_diag("Hint")
             end,
             -- left_sep = ' ',
             enabled = function() return lsp.diagnostics_exist('Hint') end,
