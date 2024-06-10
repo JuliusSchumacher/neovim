@@ -43,8 +43,6 @@ map('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
 map('n', '<leader>D', function() vim.lsp.buf.type_definition() end, opts)
 map('n', '<leader>rn', function() vim.lsp.buf.rename() end, opts)
 map('n', '<leader>e', function() require"lsp_lines".toggle() end, opts)
-map('n', '<leader>ca', '<cmd>CodeActionMenu<CR>', opts)
-map('v', '<leader>ca', '<cmd>CodeActionMenu<CR>', opts)
 vim.g.code_action_menu_show_details = true
 vim.g.code_action_menu_show_diff = true
 

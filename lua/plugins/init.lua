@@ -7,8 +7,8 @@ require("packer").startup(function()
         run = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
-                highlight = {enable = true},
-                indent = {enable = true}
+                highlight = { enable = true },
+                indent = { enable = true }
             })
         end
     }
@@ -48,16 +48,16 @@ require("packer").startup(function()
                         "help", "terminal", "dashboard", "packer", "lspinfo",
                         "TelescopePrompt", "TelescopeResults"
                     },
-                    buftypes = {"terminal"}
+                    buftypes = { "terminal" }
                 },
-                scope = {highlight = "IndentBlanklineScope"}
+                scope = { highlight = "IndentBlanklineScope" }
             }
         end
     }
 
     use {
         "lewis6991/gitsigns.nvim",
-        requires = {"nvim-lua/plenary.nvim"},
+        requires = { "nvim-lua/plenary.nvim" },
         config = function() require("plugins.configs.gitsigns") end
     }
 
@@ -74,9 +74,21 @@ require("packer").startup(function()
         config = function() require("plugins.configs.lspconfig") end
     }
 
-    use {"weilbith/nvim-code-action-menu", cmd = "CodeActionMenu"}
+    use {
+        "luckasRanarison/clear-action.nvim",
+        config = function()
+            require("clear-action").setup({
+                signs = {
+                    position = "right_align",
+                },
+                mappings = {
+                    code_action = "<leader>ca",
+                }
+            })
+        end
+    }
 
-    use {"onsails/lspkind-nvim"}
+    use { "onsails/lspkind-nvim" }
 
     use {
         "ray-x/lsp_signature.nvim",
@@ -96,25 +108,25 @@ require("packer").startup(function()
 
     use "famiu/nvim-reload"
 
-    use {"nvim-telescope/telescope-fzy-native.nvim", run = "make"}
+    use { "nvim-telescope/telescope-fzy-native.nvim", run = "make" }
 
-    use {"gbrlsnchs/telescope-lsp-handlers.nvim"}
+    use { "gbrlsnchs/telescope-lsp-handlers.nvim" }
 
     use {
         "rcarriga/nvim-dap-ui",
-        requires = {"mfussenegger/nvim-dap" , "nvim-neotest/nvim-nio"},
+        requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
         config = function() require("plugins.configs.dap") end
     }
 
-    use {"theHamsta/nvim-dap-virtual-text"}
+    use { "theHamsta/nvim-dap-virtual-text" }
 
-    use {"nvim-telescope/telescope-dap.nvim"}
+    use { "nvim-telescope/telescope-dap.nvim" }
 
     use "mfussenegger/nvim-dap-python"
 
     use {
         "nvim-telescope/telescope.nvim",
-        requires = {"nvim-lua/plenary.nvim"},
+        requires = { "nvim-lua/plenary.nvim" },
         config = function()
             require("plugins.configs.telescope")
             require("telescope").load_extension("lsp_handlers")
@@ -132,19 +144,19 @@ require("packer").startup(function()
                 auto_session_use_git_branch = true
             }
             vim.o.sessionoptions =
-                "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+            "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
         end
     }
 
     use_rocks "fzy-lua-native"
     use {
         "gelguy/wilder.nvim",
-        rocks = {"fzy-lua-native"},
+        rocks = { "fzy-lua-native" },
         run = ":UpdateRemotePlugins",
         config = function() require("plugins.configs.wilder") end
     }
 
-    use {"iamcco/markdown-preview.nvim", run = ":call mkdp#util#install()"}
+    use { "iamcco/markdown-preview.nvim", run = ":call mkdp#util#install()" }
 
     use "Darazaki/indent-o-matic"
 
@@ -201,11 +213,11 @@ require("packer").startup(function()
     use {
         "smjonas/inc-rename.nvim",
         config = function()
-            require("inc_rename").setup({input_buffer_type = "dressing"})
+            require("inc_rename").setup({ input_buffer_type = "dressing" })
         end
     }
 
-    use {"kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async"}
+    use { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" }
 
     use {
         "j-hui/fidget.nvim",
@@ -244,7 +256,7 @@ require("packer").startup(function()
         config = function() require("color-picker") end
     }
 
-    use {"mxsdev/nvim-dap-vscode-js", requires = {"mfussenegger/nvim-dap"}}
+    use { "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } }
 
     use {
         "microsoft/vscode-js-debug",
@@ -264,7 +276,7 @@ require("packer").startup(function()
         branch = "main",
         config = function()
             require("lspsaga").setup({
-                lightbulb = {sign_priority = 10, virtual_text = false}
+                lightbulb = { sign_priority = 10, virtual_text = false }
             })
         end
     }
@@ -280,15 +292,15 @@ require("packer").startup(function()
             vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
             require("neo-tree").setup({
                 close_if_last_window = true,
-                source_selector = {winbar = false, statusline = false},
+                source_selector = { winbar = false, statusline = false },
                 name = {
                     use_git_status_colors = false
                 },
                 default_component_configs = {
                     git_status = {
                         symbols = {
-                            added = "",
-                            modified = "",
+                            added     = "",
+                            modified  = "",
                             untracked = "",
                             ignored   = "󱋭",
                             unstaged  = "󰄱",
@@ -304,12 +316,12 @@ require("packer").startup(function()
     use {
         "jose-elias-alvarez/null-ls.nvim",
         config = function() require("plugins.configs.null-ls") end,
-        requires = {"nvim-lua/plenary.nvim"}
+        requires = { "nvim-lua/plenary.nvim" }
     }
 
     use {
         "MunifTanjim/prettier.nvim",
-        requires = {"jose-elias-alvarez/null-ls.nvim"},
+        requires = { "jose-elias-alvarez/null-ls.nvim" },
         config = function()
             local prettier = require("prettier")
 
@@ -337,7 +349,7 @@ require("packer").startup(function()
         config = function()
             require("telescope").load_extension("frecency")
         end,
-        requires = {"kkharji/sqlite.lua"}
+        requires = { "kkharji/sqlite.lua" }
     }
 
     use {
@@ -348,12 +360,12 @@ require("packer").startup(function()
 
     use {
         "LukasPietzschmann/telescope-sessions",
-        requires = {"LukasPietzschmann/sessions.nvim"}
+        requires = { "LukasPietzschmann/sessions.nvim" }
     }
 
-    use {"takac/vim-hardtime", config = function() end}
+    use { "takac/vim-hardtime", config = function() end }
 
-    use {"nanotee/sqls.nvim"}
+    use { "nanotee/sqls.nvim" }
 
     use {
         "pwntester/octo.nvim",
@@ -368,19 +380,19 @@ require("packer").startup(function()
         "zbirenbaum/copilot.lua",
         config = function()
             require("copilot").setup({
-                suggestion = {enabled = false},
-                panel = {enabled = false}
+                suggestion = { enabled = false },
+                panel = { enabled = false }
             })
         end
     }
 
     use {
         "zbirenbaum/copilot-cmp",
-        after = {"copilot.lua"},
+        after = { "copilot.lua" },
         config = function() require("copilot_cmp").setup() end
     }
 
-    use {"mfussenegger/nvim-jdtls"}
+    use { "mfussenegger/nvim-jdtls" }
 
     use {
         "mhartington/formatter.nvim",
@@ -389,15 +401,15 @@ require("packer").startup(function()
 
     use {
         "pmizio/typescript-tools.nvim",
-        requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
+        requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
         config = function() require("typescript-tools").setup({}) end
     }
 
-    use {"elkowar/yuck.vim"}
+    use { "elkowar/yuck.vim" }
 
     use {
         "kndndrj/nvim-dbee",
-        requires = {"MunifTanjim/nui.nvim"},
+        requires = { "MunifTanjim/nui.nvim" },
         run = function()
             -- Install tries to automatically detect the install method.
             -- if it fails, try calling it with one of these parameters:
@@ -409,8 +421,8 @@ require("packer").startup(function()
                 lazy = true,
                 sources = {
                     require("dbee.sources").FileSource:new(vim.fn.stdpath(
-                                                               "cache") ..
-                                                               "/dbee/persistence.json")
+                            "cache") ..
+                        "/dbee/persistence.json")
                 }
 
             }
@@ -423,14 +435,13 @@ require("packer").startup(function()
             require("toggleterm").setup {
                 open_mapping = [[<LEADER>t]],
                 direction = 'float',
-                float_opts = {border = 'rounded'},
+                float_opts = { border = 'rounded' },
                 insert_mappings = false
             }
         end
     }
 
-    use {'ThePrimeagen/harpoon', requires = {'nvim-lua/plenary.nvim'}}
+    use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
 
-    use {'mizlan/delimited.nvim'}
-
+    use { 'mizlan/delimited.nvim' }
 end)
