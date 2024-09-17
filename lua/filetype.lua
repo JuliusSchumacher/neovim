@@ -81,9 +81,6 @@ require("lspconfig").sqls.setup({
     end
 })
 
---[[ lsp.sqlls.setup {
-  root_dir = function() return "~/desk" end,
-} ]]
 -- latex
 require("lspconfig").texlab.setup({
     settings = {
@@ -190,3 +187,7 @@ lsp.sourcekit.setup({})
 
 -- R
 lsp.r_language_server.setup {}
+
+lsp.typos_lsp.setup({
+    capabilities = capabilities
+})
