@@ -120,6 +120,8 @@ require("packer").startup(function()
 
     use { "theHamsta/nvim-dap-virtual-text" }
 
+    use { "LiadOz/nvim-dap-repl-highlights" }
+
     use { "nvim-telescope/telescope-dap.nvim" }
 
     use "mfussenegger/nvim-dap-python"

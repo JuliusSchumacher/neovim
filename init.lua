@@ -33,6 +33,8 @@ opt.updatetime = 100
 opt.number = true
 opt.relativenumber = true
 
+opt.swapfile = false
+
 -- signcolumn
 opt.signcolumn = "yes:2"
 
@@ -86,3 +88,5 @@ opt.confirm = true
 opt.autoread = true
 opt.updatecount = 750
 cmd([[ autocmd CursorHold * checktime ]])
+
+

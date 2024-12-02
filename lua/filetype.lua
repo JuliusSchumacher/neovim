@@ -191,3 +191,6 @@ lsp.r_language_server.setup {}
 lsp.typos_lsp.setup({
     capabilities = capabilities
 })
+
+-- tailwindcss
+lsp.tailwindcss.setup{}
